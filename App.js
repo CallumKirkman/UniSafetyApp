@@ -1,20 +1,9 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, SafeAreaView } from "react-native";
+import React from "react";
 
-export default function App() {
-  return (
-    <SafeAreaView style={styles.container}>
-      <Text>New Text</Text>
-      <StatusBar style="auto" />
-    </SafeAreaView>
-  );
-}
+import MainStack from "./app/navigation/MainStack";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+const App = () => {
+  return <MainStack />;
+};
+
+export default App;
