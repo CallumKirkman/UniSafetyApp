@@ -1,19 +1,26 @@
 import React from "react";
-import { Text, View, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
 
-import Colour from "../static/Colour";
-
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 //Calling
 import * as Linking from "expo-linking";
 //Texting
 import * as SMS from "expo-sms";
+
+import { auth } from "../components/firebase";
+import Colour from "../static/Colour";
 
 const Home = ({ navigation }) => {
   //Calling
   const callNumber = async () => {
     Linking.openURL("tel://+07928248043");
   };
-
   //Texting
   const sendSMS = async () => {
     const { result } = await SMS.sendSMSAsync(
@@ -22,34 +29,153 @@ const Home = ({ navigation }) => {
     );
   };
 
+  const signOut = () => {
+    try {
+      auth.signOut().then(() => {
+        navigation.replace("Login");
+      });
+    } catch (e) {
+      alert("Failed to log out");
+    }
+  };
+
   return (
-    <View
+    <SafeAreaView
       style={{
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
+        marginHorizontal: 10,
       }}
     >
-      <Text>Home screen</Text>
+      <View
+        style={{
+          flex: 2,
+          backgroundColor: "red",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <TouchableOpacity
+          style={[styles.buttonBar]}
+          onPress={() => navigation.navigate("Location")}
+        >
+          <Text style={styles.buttonText}>Location</Text>
+        </TouchableOpacity>
+      </View>
 
-      <Button
-        title="Location"
-        onPress={() => navigation.navigate("Location")}
-      />
-      <Button title="Contact" onPress={() => navigation.navigate("Contact")} />
-      <Button
-        title="ContactAdd"
-        onPress={() => navigation.navigate("ContactAdd")}
-      />
-      <Button
-        title="ContactEdit"
-        onPress={() => navigation.navigate("ContactEdit")}
-      />
+      <View
+        style={{
+          flex: 2,
+          backgroundColor: "darkorange",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <TouchableOpacity
+          style={[styles.buttonBar]}
+          onPress={() => navigation.navigate("Contact")}
+        >
+          <Text style={styles.buttonText}>Contact</Text>
+        </TouchableOpacity>
+      </View>
 
-      <Button title="Call" color={Colour.red} onPress={callNumber} />
-      <Button title="Send" color={Colour.red} onPress={sendSMS} />
-    </View>
+      <View
+        style={{
+          flex: 2,
+          backgroundColor: "yellow",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <TouchableOpacity style={[styles.buttonBar]} onPress={() => {}}>
+          <Text style={styles.buttonText}>Resources?</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View
+        style={{
+          flex: 2,
+          backgroundColor: "green",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <View
+          style={{
+            flex: 1,
+            margin: 10,
+            backgroundColor: "yellow",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <TouchableOpacity style={[styles.buttonBox]} onPress={sendSMS}>
+            <Text style={styles.buttonText}>Send</Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flex: 1,
+            margin: 10,
+            backgroundColor: "yellow",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <TouchableOpacity style={[styles.buttonBox]} onPress={callNumber}>
+            <Text style={styles.buttonText}>Call</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      {/* <Text>Home screen</Text>
+      <Text>Email: {auth.currentUser?.email}</Text> */}
+    </SafeAreaView>
   );
 };
-
 export default Home;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonContainer: {
+    width: "60%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonBox: {
+    backgroundColor: Colour.blue,
+    // flex: 1,
+    width: "100%",
+    height: "90%",
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonBar: {
+    backgroundColor: Colour.blue,
+    width: "100%",
+    height: "50%",
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonText: {
+    color: Colour.white,
+    fontWeight: "700",
+    fontSize: 16,
+  },
+  //   rowButtons: {
+  //     margin: 5,
+  //     width: "100%",
+  //     height: "40%",
+  //     backgroundColor: "lightblue",
+  //     flexDirection: "row",
+  //     justifyContent: "space-between",
+  //     alignItems: "center",
+  //   },
+});

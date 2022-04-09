@@ -1,21 +1,32 @@
 import React from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
+
+import Colour from "../static/Colour";
 
 const ContactEdit = ({ navigation }) => {
   return (
-    <View
+    <SafeAreaView
       style={{
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
       }}
     >
-      <View style={styles.topButton}>
-        <Button title="Back" onPress={() => navigation.navigate("Home")} />
-      </View>
+      <TouchableOpacity
+        style={[styles.buttonBox]}
+        onPress={() => navigation.navigate("Contact")}
+      >
+        <Text style={styles.buttonText}>Back</Text>
+      </TouchableOpacity>
 
       <Text>ContactEdit screen</Text>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -28,8 +39,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  topButton: {
-    padding: 5,
-    flexDirection: "row",
+  buttonBox: {
+    backgroundColor: Colour.blue,
+    width: "60%",
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 10,
+    margin: 20,
+  },
+  buttonText: {
+    color: Colour.white,
+    fontWeight: "700",
+    fontSize: 16,
   },
 });
