@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -17,7 +17,66 @@ import {
 } from "../components/firestore";
 import Colour from "../static/Colour";
 
+const DATA = [
+  {
+    id: "1",
+    title: "First Item",
+  },
+  {
+    id: "2",
+    title: "Second Item",
+  },
+  {
+    id: "3",
+    title: "Third Item",
+  },
+  {
+    id: "4",
+    title: "Fourth Item",
+  },
+  {
+    id: "5",
+    title: "Fifth Item",
+  },
+  {
+    id: "6",
+    title: "Sixth Item",
+  },
+  {
+    id: "7",
+    title: "Seventh Item",
+  },
+];
+
 const Contact = ({ navigation }) => {
+  const [selectedId, setSelectedId] = useState(null);
+
+  const Item = ({ item, onPress, backgroundColor, textColor }) => (
+    <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
+      <Text style={[styles.title, textColor]}>{item.title}</Text>
+    </TouchableOpacity>
+  );
+
+  const renderItem = ({ item }) => {
+    const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
+    const color = item.id === selectedId ? "white" : "black";
+
+    const editNav = () => {
+      setSelectedId(item.id);
+      navigation.navigate("ContactEdit");
+    };
+
+    return (
+      <Item
+        item={item}
+        // onPress={() => setSelectedId(item.id)}
+        onPress={editNav}
+        backgroundColor={{ backgroundColor }}
+        textColor={{ color }}
+      />
+    );
+  };
+
   const runCreateUser = () => {
     createUser(auth.currentUser?.email, "User Name", "9999999999");
   };
@@ -45,10 +104,10 @@ const Contact = ({ navigation }) => {
       style={{
         flex: 1,
         // justifyContent: "center",
-        alignItems: "center",
+        // alignItems: "center",
       }}
     >
-      <Text>Contact screen</Text>
+      <Text style={{ alignSelf: "center" }}>Contact screen</Text>
 
       <View style={styles.topButtons}>
         <TouchableOpacity
@@ -62,19 +121,22 @@ const Contact = ({ navigation }) => {
           style={[styles.buttonBox]}
           onPress={() => navigation.navigate("ContactAdd")}
         >
-          <Text style={styles.buttonText}>Contact Add</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.buttonBox]}
-          onPress={() => navigation.navigate("ContactEdit")}
-        >
-          <Text style={styles.buttonText}>Contact Edit</Text>
+          <Text style={styles.buttonText}>+</Text>
         </TouchableOpacity>
       </View>
 
-      <Text>Email: {auth.currentUser?.email}</Text>
+      <Text style={{ alignSelf: "center" }}>
+        Email: {auth.currentUser?.email}
+      </Text>
 
-      <TouchableOpacity style={[styles.buttonBox]} onPress={runCreateUser}>
+      <FlatList
+        data={DATA}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        extraData={selectedId}
+      />
+
+      {/* <TouchableOpacity style={[styles.buttonBox]} onPress={runCreateUser}>
         <Text style={styles.buttonText}>Create User</Text>
       </TouchableOpacity>
 
@@ -88,9 +150,7 @@ const Contact = ({ navigation }) => {
 
       <TouchableOpacity style={[styles.buttonBox]} onPress={runGetCollection}>
         <Text style={styles.buttonText}>Get collection</Text>
-      </TouchableOpacity>
-
-      {/* TODO: Contact flatlist */}
+      </TouchableOpacity> */}
     </SafeAreaView>
   );
 };
@@ -121,5 +181,13 @@ const styles = StyleSheet.create({
     color: Colour.white,
     fontWeight: "700",
     fontSize: 16,
+  },
+  item: {
+    padding: 10,
+    marginVertical: 8,
+    marginHorizontal: 30,
+  },
+  title: {
+    fontSize: 32,
   },
 });
