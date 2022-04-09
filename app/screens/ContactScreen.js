@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -12,8 +12,8 @@ import { auth } from "../components/firebase";
 import {
   createUser,
   addContact,
-  getDocument,
-  getCollection,
+  getUser,
+  getContacts,
 } from "../components/firestore";
 import Colour from "../static/Colour";
 
@@ -49,28 +49,32 @@ const DATA = [
 ];
 
 const Contact = ({ navigation }) => {
+  let email = auth.currentUser?.email;
+
   const [selectedId, setSelectedId] = useState(null);
+  const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    runGetContacts();
+  }, []);
 
   const Item = ({ item, onPress, backgroundColor, textColor }) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-      <Text style={[styles.title, textColor]}>{item.title}</Text>
+      <Text style={[styles.title, textColor]}>{item.name}</Text>
     </TouchableOpacity>
   );
 
   const renderItem = ({ item }) => {
-    const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
-    const color = item.id === selectedId ? "white" : "black";
-
-    const editNav = () => {
-      setSelectedId(item.id);
-      navigation.navigate("ContactEdit");
-    };
+    const backgroundColor = item.number === selectedId ? "#6e3b6e" : "#f9c2ff";
+    const color = item.number === selectedId ? "white" : "black";
 
     return (
       <Item
         item={item}
-        // onPress={() => setSelectedId(item.id)}
-        onPress={editNav}
+        onPress={() => {
+          setSelectedId(item.number);
+          navigation.navigate("ContactEdit");
+        }}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
       />
@@ -78,24 +82,28 @@ const Contact = ({ navigation }) => {
   };
 
   const runCreateUser = () => {
-    createUser(auth.currentUser?.email, "User Name", "9999999999");
+    createUser(email, "Users_Name", "9999999999");
   };
 
   const runAddContact = () => {
-    addContact(auth.currentUser?.email, "Contact Name", "9999999999");
+    addContact(email, "Contact Name6", "9999999999");
   };
 
-  const runGetDocument = async () => {
-    await getDocument(auth.currentUser?.email).then((user) => {
+  const runGetUser = async () => {
+    await getUser(email).then((user) => {
       console.log("User data");
       console.log(user);
     });
   };
 
-  const runGetCollection = async () => {
-    await getCollection().then((collection) => {
-      console.log("Collection data");
-      console.log(collection);
+  const runGetContacts = async () => {
+    console.log("Getting contacts");
+
+    await getContacts(email).then((collection) => {
+      // console.log("Collection data");
+      // console.log(collection);
+
+      setContacts(collection);
     });
   };
 
@@ -125,14 +133,12 @@ const Contact = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      <Text style={{ alignSelf: "center" }}>
-        Email: {auth.currentUser?.email}
-      </Text>
+      <Text style={{ alignSelf: "center" }}>Email: {email}</Text>
 
       <FlatList
-        data={DATA}
+        data={contacts}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.number}
         extraData={selectedId}
       />
 

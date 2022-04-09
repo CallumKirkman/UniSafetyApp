@@ -2,9 +2,10 @@ import * as firebase from "firebase";
 
 const db = firebase.firestore();
 
+//TODO: allow for undefined alert return
+
 // Create user data
 const createUser = (email, name, number) => {
-  //TODO: allow for undefined alert return
   db.collection("Users")
     .doc(email)
     .set({
@@ -23,6 +24,7 @@ const addContact = (email, contactName, number) => {
     .collection("Contacts")
     .doc(contactName)
     .set({
+      name: contactName,
       number: number,
     })
     .then(() => {
@@ -30,18 +32,22 @@ const addContact = (email, contactName, number) => {
     });
 };
 
-// Get specific doccument
-const getDocument = async (email) => {
+// Get user information
+const getUser = async (email) => {
   const userRef = await db.collection("Users").doc(email).get();
 
   return userRef.data();
 };
 
-// Get all in collection
-const getCollection = async () => {
+// Get all user contacts
+const getContacts = async (email) => {
   let dataArray = [];
 
-  const userRef = await db.collection("Users").get();
+  const userRef = await db
+    .collection("Users")
+    .doc(email)
+    .collection("Contacts")
+    .get();
 
   userRef.forEach((doc) => {
     dataArray.push(doc.data());
@@ -51,4 +57,4 @@ const getCollection = async () => {
   return dataArray;
 };
 
-export { createUser, addContact, getDocument, getCollection };
+export { createUser, addContact, getUser, getContacts };
