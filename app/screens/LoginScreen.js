@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,
-    marginTop: 5,
+    margin: 5,
   },
   buttonContainer: {
     width: "60%",
@@ -111,10 +111,10 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 15,
     borderRadius: 10,
+    margin: 5,
   },
   buttonOutline: {
     backgroundColor: Colour.white,
-    marginTop: 5,
     borderColor: Colour.blue,
     borderWidth: 2,
   },

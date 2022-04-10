@@ -2,7 +2,8 @@ import * as firebase from "firebase";
 
 const db = firebase.firestore();
 
-//TODO: allow for undefined alert return
+//TODO: allow for undefined alert return?
+//TODO: Delete user?
 
 // Create user data
 const createUser = (email, name, number) => {
@@ -32,6 +33,18 @@ const addContact = (email, contactName, number) => {
     });
 };
 
+// Delete user contact
+const deleteContact = (email, contactName) => {
+  db.collection("Users")
+    .doc(email)
+    .collection("Contacts")
+    .doc(contactName)
+    .delete()
+    .then(() => {
+      console.log("Contact deleted!");
+    });
+};
+
 // Get user information
 const getUser = async (email) => {
   const userRef = await db.collection("Users").doc(email).get();
@@ -57,4 +70,4 @@ const getContacts = async (email) => {
   return dataArray;
 };
 
-export { createUser, addContact, getUser, getContacts };
+export { createUser, addContact, deleteContact, getUser, getContacts };

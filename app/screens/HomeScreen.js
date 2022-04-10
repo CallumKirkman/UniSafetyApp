@@ -49,11 +49,18 @@ const Home = ({ navigation }) => {
       <View
         style={{
           flex: 2,
-          backgroundColor: "red",
+          //   backgroundColor: "red",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
+        <TouchableOpacity
+          style={{ margin: 10, padding: 5, backgroundColor: "red" }}
+          onPress={signOut}
+        >
+          <Text>Sign out</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity
           style={[styles.buttonBar]}
           onPress={() => navigation.navigate("Location")}
@@ -65,7 +72,7 @@ const Home = ({ navigation }) => {
       <View
         style={{
           flex: 2,
-          backgroundColor: "darkorange",
+          //   backgroundColor: "darkorange",
           justifyContent: "center",
           alignItems: "center",
         }}
@@ -81,7 +88,7 @@ const Home = ({ navigation }) => {
       <View
         style={{
           flex: 2,
-          backgroundColor: "yellow",
+          //   backgroundColor: "yellow",
           justifyContent: "center",
           alignItems: "center",
         }}
@@ -94,7 +101,7 @@ const Home = ({ navigation }) => {
       <View
         style={{
           flex: 2,
-          backgroundColor: "green",
+          //   backgroundColor: "green",
           flexDirection: "row",
           justifyContent: "center",
           alignItems: "center",
@@ -104,7 +111,7 @@ const Home = ({ navigation }) => {
           style={{
             flex: 1,
             margin: 10,
-            backgroundColor: "yellow",
+            // backgroundColor: "yellow",
             justifyContent: "center",
             alignItems: "center",
           }}
@@ -117,7 +124,7 @@ const Home = ({ navigation }) => {
           style={{
             flex: 1,
             margin: 10,
-            backgroundColor: "yellow",
+            // backgroundColor: "yellow",
             justifyContent: "center",
             alignItems: "center",
           }}

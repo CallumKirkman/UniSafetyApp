@@ -12,41 +12,11 @@ import { auth } from "../components/firebase";
 import {
   createUser,
   addContact,
+  deleteContact,
   getUser,
   getContacts,
 } from "../components/firestore";
 import Colour from "../static/Colour";
-
-const DATA = [
-  {
-    id: "1",
-    title: "First Item",
-  },
-  {
-    id: "2",
-    title: "Second Item",
-  },
-  {
-    id: "3",
-    title: "Third Item",
-  },
-  {
-    id: "4",
-    title: "Fourth Item",
-  },
-  {
-    id: "5",
-    title: "Fifth Item",
-  },
-  {
-    id: "6",
-    title: "Sixth Item",
-  },
-  {
-    id: "7",
-    title: "Seventh Item",
-  },
-];
 
 const Contact = ({ navigation }) => {
   let email = auth.currentUser?.email;
@@ -89,6 +59,10 @@ const Contact = ({ navigation }) => {
     addContact(email, "Contact Name6", "9999999999");
   };
 
+  const runDeleteContact = () => {
+    deleteContact(email, "Contact Name");
+  };
+
   const runGetUser = async () => {
     await getUser(email).then((user) => {
       console.log("User data");
@@ -97,8 +71,6 @@ const Contact = ({ navigation }) => {
   };
 
   const runGetContacts = async () => {
-    console.log("Getting contacts");
-
     await getContacts(email).then((collection) => {
       // console.log("Collection data");
       // console.log(collection);
@@ -140,6 +112,9 @@ const Contact = ({ navigation }) => {
         renderItem={renderItem}
         keyExtractor={(item) => item.number}
         extraData={selectedId}
+        ListEmptyComponent={
+          <Text style={styles.listEmpty}>No contacts found</Text>
+        }
       />
 
       {/* <TouchableOpacity style={[styles.buttonBox]} onPress={runCreateUser}>
@@ -148,6 +123,10 @@ const Contact = ({ navigation }) => {
 
       <TouchableOpacity style={[styles.buttonBox]} onPress={runAddContact}>
         <Text style={styles.buttonText}>Add contact</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={[styles.buttonBox]} onPress={runDeleteContact}>
+        <Text style={styles.buttonText}>Delete contact</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={[styles.buttonBox]} onPress={runGetDocument}>
@@ -195,5 +174,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
+  },
+  listEmpty: {
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 25,
+    marginTop: 70,
   },
 });
