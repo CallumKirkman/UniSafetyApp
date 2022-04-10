@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -18,9 +18,17 @@ const ContactAdd = ({ navigation }) => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
 
+  const [disabledStatus, setDisabledStatus] = useState(true);
+
+  useEffect(() => {
+    if (number.length === 10 && name != "") {
+      setDisabledStatus(false);
+    } else {
+      setDisabledStatus(true);
+    }
+  });
+
   const runAddContact = () => {
-    // console.log(name);
-    // console.log(number);
     addContact(email, name, number);
     navigation.navigate("Contact");
   };
@@ -52,9 +60,19 @@ const ContactAdd = ({ navigation }) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={[styles.button]} onPress={runAddContact}>
-          <Text style={styles.buttonText}>Add contact</Text>
-        </TouchableOpacity>
+        {/* Toggle disabled button */}
+        {disabledStatus ? (
+          <TouchableOpacity
+            style={styles.buttonInvalid}
+            disabled={disabledStatus}
+          >
+            <Text style={styles.buttonText}>Add contact</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity style={styles.buttonValid} onPress={runAddContact}>
+            <Text style={styles.buttonText}>Add contact</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </KeyboardAvoidingView>
   );
@@ -96,8 +114,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  button: {
+  buttonValid: {
     backgroundColor: Colour.blue,
+    width: "100%",
+    padding: 15,
+    borderRadius: 10,
+    margin: 5,
+  },
+  buttonInvalid: {
+    backgroundColor: Colour.mediumGray,
     width: "100%",
     padding: 15,
     borderRadius: 10,

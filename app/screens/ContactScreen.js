@@ -26,7 +26,7 @@ const Contact = ({ navigation }) => {
 
   useEffect(() => {
     runGetContacts();
-  }, []);
+  });
 
   const Item = ({ item, onPress, backgroundColor, textColor }) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
