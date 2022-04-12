@@ -54,11 +54,8 @@ const Home = ({ navigation }) => {
           alignItems: "center",
         }}
       >
-        <TouchableOpacity
-          style={{ margin: 10, padding: 5, backgroundColor: "red" }}
-          onPress={signOut}
-        >
-          <Text>Sign out</Text>
+        <TouchableOpacity style={[styles.signoutButton]} onPress={signOut}>
+          <Text style={styles.signoutText}>Sign out</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -176,13 +173,18 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 16,
   },
-  //   rowButtons: {
-  //     margin: 5,
-  //     width: "100%",
-  //     height: "40%",
-  //     backgroundColor: "lightblue",
-  //     flexDirection: "row",
-  //     justifyContent: "space-between",
-  //     alignItems: "center",
-  //   },
+  signoutButton: {
+    backgroundColor: Colour.red,
+    width: "40%",
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 10,
+    margin: 20,
+  },
+  signoutText: {
+    color: Colour.black,
+    fontWeight: "700",
+    fontSize: 16,
+  },
 });

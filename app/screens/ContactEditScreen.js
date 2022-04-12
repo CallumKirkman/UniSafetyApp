@@ -90,6 +90,16 @@ const ContactEdit = ({ navigation, route }) => {
             <Text style={styles.buttonText}>Edit contact</Text>
           </TouchableOpacity>
         )}
+
+        <TouchableOpacity
+          style={[styles.deleteButton]}
+          onPress={() => {
+            deleteContact(email, contactInformation.number.toString());
+            navigation.navigate("Contact");
+          }}
+        >
+          <Text style={styles.deleteText}>Delete</Text>
+        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
@@ -144,5 +154,19 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     margin: 5,
+  },
+  deleteButton: {
+    backgroundColor: Colour.red,
+    width: "60%",
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 10,
+    margin: 20,
+  },
+  deleteText: {
+    color: Colour.black,
+    fontWeight: "700",
+    fontSize: 16,
   },
 });
