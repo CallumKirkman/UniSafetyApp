@@ -23,10 +23,10 @@ const addContact = (email, contactName, number) => {
   db.collection("Users")
     .doc(email)
     .collection("Contacts")
-    .doc(contactName)
+    .doc(number)
     .set({
       name: contactName,
-      number: number,
+      number: Number(number),
     })
     .then(() => {
       console.log("Contact added!");
@@ -34,11 +34,11 @@ const addContact = (email, contactName, number) => {
 };
 
 // Delete user contact
-const deleteContact = (email, contactName) => {
+const deleteContact = (email, number) => {
   db.collection("Users")
     .doc(email)
     .collection("Contacts")
-    .doc(contactName)
+    .doc(number)
     .delete()
     .then(() => {
       console.log("Contact deleted!");

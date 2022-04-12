@@ -8,6 +8,8 @@ import {
   FlatList,
 } from "react-native";
 
+import { useIsFocused } from "@react-navigation/native";
+
 import { auth } from "../components/firebase";
 import {
   createUser,
@@ -19,14 +21,19 @@ import {
 import Colour from "../static/Colour";
 
 const Contact = ({ navigation }) => {
+  console.log("Contact screen render");
   let email = auth.currentUser?.email;
+
+  const isFocused = useIsFocused();
 
   const [selectedId, setSelectedId] = useState(null);
   const [contacts, setContacts] = useState([]);
 
+  const [numberList, setNumberList] = useState([]);
+
   useEffect(() => {
     runGetContacts();
-  });
+  }, [isFocused]);
 
   const Item = ({ item, onPress, backgroundColor, textColor }) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
@@ -43,7 +50,7 @@ const Contact = ({ navigation }) => {
         item={item}
         onPress={() => {
           setSelectedId(item.number);
-          navigation.navigate("ContactEdit");
+          navigation.navigate("ContactEdit", { item, numberList });
         }}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
@@ -71,11 +78,15 @@ const Contact = ({ navigation }) => {
   };
 
   const runGetContacts = async () => {
-    await getContacts(email).then((collection) => {
-      // console.log("Collection data");
-      // console.log(collection);
+    let numberArray = [];
 
+    await getContacts(email).then((collection) => {
       setContacts(collection);
+      collection.forEach((item) => {
+        numberArray.push(item.number);
+      });
+      setNumberList(numberArray);
+      //TODO: display warning contact exists in edit & add
     });
   };
 
@@ -83,8 +94,6 @@ const Contact = ({ navigation }) => {
     <SafeAreaView
       style={{
         flex: 1,
-        // justifyContent: "center",
-        // alignItems: "center",
       }}
     >
       <Text style={{ alignSelf: "center" }}>Contact screen</Text>
@@ -99,13 +108,11 @@ const Contact = ({ navigation }) => {
 
         <TouchableOpacity
           style={[styles.buttonBox]}
-          onPress={() => navigation.navigate("ContactAdd")}
+          onPress={() => navigation.navigate("ContactAdd", { numberList })}
         >
           <Text style={styles.buttonText}>+</Text>
         </TouchableOpacity>
       </View>
-
-      <Text style={{ alignSelf: "center" }}>Email: {email}</Text>
 
       <FlatList
         data={contacts}
@@ -116,26 +123,6 @@ const Contact = ({ navigation }) => {
           <Text style={styles.listEmpty}>No contacts found</Text>
         }
       />
-
-      {/* <TouchableOpacity style={[styles.buttonBox]} onPress={runCreateUser}>
-        <Text style={styles.buttonText}>Create User</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={[styles.buttonBox]} onPress={runAddContact}>
-        <Text style={styles.buttonText}>Add contact</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={[styles.buttonBox]} onPress={runDeleteContact}>
-        <Text style={styles.buttonText}>Delete contact</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={[styles.buttonBox]} onPress={runGetDocument}>
-        <Text style={styles.buttonText}>Get document</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={[styles.buttonBox]} onPress={runGetCollection}>
-        <Text style={styles.buttonText}>Get collection</Text>
-      </TouchableOpacity> */}
     </SafeAreaView>
   );
 };

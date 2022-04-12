@@ -12,7 +12,8 @@ import { auth } from "../components/firebase";
 import { addContact } from "../components/firestore";
 import Colour from "../static/Colour";
 
-const ContactAdd = ({ navigation }) => {
+const ContactAdd = ({ navigation, route }) => {
+  console.log("Contact add screen render");
   let email = auth.currentUser?.email;
 
   const [name, setName] = useState("");
@@ -22,8 +23,13 @@ const ContactAdd = ({ navigation }) => {
 
   useEffect(() => {
     if (number.length === 10 && name != "") {
-      setDisabledStatus(false);
+      if (route.params.numberList.includes(Number(number)) === false) {
+        // Contact does not exist
+        setDisabledStatus(false);
+      }
+      // Contact already exists
     } else {
+      // Contact wrong format
       setDisabledStatus(true);
     }
   });
@@ -56,6 +62,7 @@ const ContactAdd = ({ navigation }) => {
           placeholder="Contact Number"
           value={number}
           onChangeText={setNumber}
+          keyboardType="numeric"
         />
       </View>
 
