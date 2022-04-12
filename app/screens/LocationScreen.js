@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import {
   Dimensions,
   StyleSheet,
@@ -9,15 +9,23 @@ import {
 } from "react-native";
 
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import MapView, { Callout, Marker } from "react-native-maps";
+import MapView, { Callout, Marker, Polyline } from "react-native-maps";
+import MapViewDirections from "react-native-maps-directions";
 
 const Location = ({ navigation }) => {
-  const [pin, setPin] = React.useState({
+  const [yourPin, setYourPin] = React.useState({
+    // Bournemouth
     latitude: 50.718395,
     longitude: -1.883377,
+
+    // 20 St Ives
+    // latitude: 50.72932744306023,
+    // longitude: -1.8762423593098077,
   });
 
-  const [region, setRegion] = React.useState({
+  //TODO: Save state of destination in perminant location
+  const [destination, setDestination] = React.useState({
+    // Bournemouth
     latitude: 50.718395,
     longitude: -1.883377,
     latitudeDelta: 0.0922,
@@ -39,7 +47,7 @@ const Location = ({ navigation }) => {
         onPress={(data, details = null) => {
           // 'details' is provided when fetchDetails = true
           console.log(data, details);
-          setRegion({
+          setDestination({
             latitude: details.geometry.location.lat,
             longitude: details.geometry.location.lng,
             latitudeDelta: 0.0922,
@@ -51,7 +59,7 @@ const Location = ({ navigation }) => {
           language: "en",
           components: "country:uk",
           radius: 5000,
-          location: `${region.latitude}, ${region.longitude}`,
+          location: `${yourPin.latitude}, ${yourPin.longitude}`,
         }}
         styles={{
           container: {
@@ -67,24 +75,46 @@ const Location = ({ navigation }) => {
       <MapView
         style={styles.map}
         initialRegion={{
-          latitude: 50.718395,
-          longitude: -1.883377,
+          latitude: yourPin.latitude,
+          longitude: yourPin.longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
         provider="google"
       >
+        <MapViewDirections
+          origin={yourPin}
+          destination={{
+            latitude: destination.latitude,
+            longitude: destination.longitude,
+          }} // Destination pin
+          apikey={"AIzaSyBuE5BvZEN8DEEqfxMC19gpgLLUF3Lh5Yw"}
+          strokeWidth={4}
+          strokeColor="#111111"
+          mode="WALKING"
+        />
+
+        <Marker
+          coordinate={yourPin}
+          pinColor="black"
+          // TODO: Set location
+        >
+          <Callout>
+            <Text>You</Text>
+          </Callout>
+        </Marker>
+
         <Marker
           coordinate={{
-            latitude: region.latitude,
-            longitude: region.longitude,
-          }}
+            latitude: destination.latitude,
+            longitude: destination.longitude,
+          }} // Destination pin
           draggable={true}
           onDragStart={(e) => {
             console.log("Drag start", e.nativeEvent.coordinates);
           }}
           onDragEnd={(e) => {
-            setRegion({
+            setDestination({
               latitude: e.nativeEvent.coordinate.latitude,
               longitude: e.nativeEvent.coordinate.longitude,
             });
@@ -92,15 +122,6 @@ const Location = ({ navigation }) => {
         >
           <Callout>
             <Text>Your destination</Text>
-          </Callout>
-        </Marker>
-        <Marker
-          coordinate={pin}
-          pinColor="black"
-          // TODO: Set location
-        >
-          <Callout>
-            <Text>You</Text>
           </Callout>
         </Marker>
       </MapView>

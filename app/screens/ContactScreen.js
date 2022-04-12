@@ -86,7 +86,7 @@ const Contact = ({ navigation }) => {
         numberArray.push(item.number);
       });
       setNumberList(numberArray);
-      //TODO: display warning contact exists in edit & add
+      //TODO: display warning contact exists in edit & add?
     });
   };
 
