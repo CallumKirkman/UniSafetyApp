@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,7 +6,10 @@ import {
   View,
   Button,
   TouchableOpacity,
+  Alert,
 } from "react-native";
+
+import * as GeoLocation from "expo-location";
 
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import MapView, { Callout, Marker } from "react-native-maps";
@@ -34,8 +37,34 @@ const Location = ({ navigation }) => {
     longitudeDelta: 0.0421,
   });
 
+  useEffect(() => {
+    (async () => {
+      let { status } = await GeoLocation.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        Alert.alert("Permission to access location was denied");
+        return;
+      }
+
+      let location = await GeoLocation.getCurrentPositionAsync({});
+
+      setYourPin({
+        latitude: parseFloat(JSON.stringify(location.coords.latitude)),
+        longitude: parseFloat(JSON.stringify(location.coords.longitude)),
+      });
+    })();
+  }, []);
+
+  let waiting = "Waiting for location..";
+  if (yourPin.latitude != 50.718395 && yourPin.longitude != -1.883377) {
+    waiting = "";
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <View>
+        <Text style={styles.paragraph}>{waiting}</Text>
+      </View>
+
       <View style={styles.topButton}>
         <Button title="Back" onPress={() => navigation.navigate("Home")} />
       </View>
@@ -175,6 +204,12 @@ const styles = StyleSheet.create({
     color: Colour.white,
     fontWeight: "700",
     fontSize: 16,
+    alignSelf: "center",
+  },
+  paragraph: {
+    color: Colour.black,
+    fontWeight: "700",
+    fontSize: 18,
     alignSelf: "center",
   },
 });
