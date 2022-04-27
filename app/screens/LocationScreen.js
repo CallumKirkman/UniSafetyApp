@@ -28,7 +28,6 @@ const Location = ({ navigation }) => {
     // longitude: -1.8762423593098077,
   });
 
-  //TODO: Save state of destination in perminant location
   const [destination, setDestination] = React.useState({
     // Bournemouth
     latitude: 50.718395,
@@ -39,6 +38,7 @@ const Location = ({ navigation }) => {
 
   useEffect(() => {
     (async () => {
+      //TODO: Add requestBackgroundPermissionsAsync()?
       let { status } = await GeoLocation.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         Alert.alert("Permission to access location was denied");
@@ -125,11 +125,7 @@ const Location = ({ navigation }) => {
           mode="WALKING"
         />
 
-        <Marker
-          coordinate={yourPin}
-          pinColor="black"
-          // TODO: Set location
-        >
+        <Marker coordinate={yourPin} pinColor="black">
           <Callout>
             <Text>You</Text>
           </Callout>

@@ -14,6 +14,8 @@ import MapViewDirections from "react-native-maps-directions";
 import Colour from "../static/Colour";
 
 const ActiveLocaiton = ({ navigation, route }) => {
+  //TODO: Get location during travel
+  //TODO: Save location to perminant location during travel
   let yourPin = route.params.yourPin;
   let destination = route.params.destination;
 
@@ -51,11 +53,7 @@ const ActiveLocaiton = ({ navigation, route }) => {
           mode="WALKING"
         />
 
-        <Marker
-          coordinate={yourPin}
-          pinColor="black"
-          // TODO: Set location
-        >
+        <Marker coordinate={yourPin} pinColor="black">
           <Callout>
             <Text>You</Text>
           </Callout>
