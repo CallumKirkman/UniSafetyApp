@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "../screens/LoginScreen";
 import Home from "../screens/HomeScreen";
 import Location from "../screens/LocationScreen";
+import ActiveLocation from "../screens/ActiveLocationScreen";
 import Contact from "../screens/ContactScreen";
 import ContactAdd from "../screens/ContactAddScreen";
 import ContactEdit from "../screens/ContactEditScreen";
@@ -19,6 +20,7 @@ const MainStack = () => {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Location" component={Location} />
+        <Stack.Screen name="ActiveLocation" component={ActiveLocation} />
         <Stack.Screen name="Contact" component={Contact} />
         <Stack.Screen name="ContactAdd" component={ContactAdd} />
         <Stack.Screen name="ContactEdit" component={ContactEdit} />

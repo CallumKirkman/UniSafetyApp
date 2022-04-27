@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import {
-  Dimensions,
   StyleSheet,
   Text,
   SafeAreaView,
   View,
   Button,
+  TouchableOpacity,
 } from "react-native";
 
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import MapView, { Callout, Marker, Polyline } from "react-native-maps";
+import MapView, { Callout, Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
+
+import Colour from "../static/Colour";
 
 const Location = ({ navigation }) => {
   const [yourPin, setYourPin] = React.useState({
@@ -125,6 +127,17 @@ const Location = ({ navigation }) => {
           </Callout>
         </Marker>
       </MapView>
+
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            navigation.navigate("ActiveLocation", { yourPin, destination })
+          }
+        >
+          <Text style={styles.buttonText}>Start</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -139,13 +152,29 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   map: {
-    // width: Dimensions.get("window").width,
-    // height: Dimensions.get("window").height,
     width: "100%",
     height: "75%",
   },
   topButton: {
     padding: 5,
     flexDirection: "row",
+  },
+  buttonContainer: {
+    margin: 10,
+  },
+  button: {
+    backgroundColor: Colour.blue,
+    width: "50%",
+    padding: 15,
+    borderRadius: 10,
+    margin: 5,
+    justifyContent: "center",
+    alignSelf: "center",
+  },
+  buttonText: {
+    color: Colour.white,
+    fontWeight: "700",
+    fontSize: 16,
+    alignSelf: "center",
   },
 });
