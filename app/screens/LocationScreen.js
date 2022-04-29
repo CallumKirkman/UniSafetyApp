@@ -46,32 +46,35 @@ const Location = ({ navigation }) => {
         latitude: parseFloat(JSON.stringify(location.coords.latitude)),
         longitude: parseFloat(JSON.stringify(location.coords.longitude)),
       });
-      return;
+      return; //TODO: Needed?
     })();
 
     return () => initialLocation;
   }, []);
 
-  const MINUTE_MS = 60000;
+  // //TODO: Is this needed?
+  // // const MINUTE_MS = 60000;
 
-  useEffect(() => {
-    // Get location every minute
-    const interval = setInterval(() => {
-      console.log("Logs every minute");
+  // useEffect(() => {
+  //   // Get location every minute
+  //   //TODO: Stop when not on screen
+  //   const interval = setInterval(() => {
+  //     console.log("Location log");
 
-      (async () => {
-        let location = await ExpoLocation.getCurrentPositionAsync({});
+  //     const locationPing = (async () => {
+  //       let location = await ExpoLocation.getCurrentPositionAsync({});
 
-        setYourPin({
-          latitude: parseFloat(JSON.stringify(location.coords.latitude)),
-          longitude: parseFloat(JSON.stringify(location.coords.longitude)),
-        });
-        return;
-      })();
-    }, MINUTE_MS);
+  //       setYourPin({
+  //         latitude: parseFloat(JSON.stringify(location.coords.latitude)),
+  //         longitude: parseFloat(JSON.stringify(location.coords.longitude)),
+  //       });
+  //       return;
+  //     })();
+  //     return locationPing;
+  //   }, MINUTE_MS);
 
-    return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
-  }, []); //props.x
+  //   return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+  // }, []);
 
   let waiting = "Waiting for location..";
   if (yourPin.latitude != 50.718395 && yourPin.longitude != -1.883377) {
@@ -96,7 +99,7 @@ const Location = ({ navigation }) => {
         }}
         onPress={(data, details = null) => {
           // 'details' is provided when fetchDetails = true
-          console.log(data, details);
+          // console.log(data, details);
           setDestination({
             latitude: details.geometry.location.lat,
             longitude: details.geometry.location.lng,

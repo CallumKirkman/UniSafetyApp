@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,16 +8,62 @@ import {
   Alert,
 } from "react-native";
 
+import * as ExpoLocation from "expo-location";
+
 import MapView, { Callout, Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 
 import Colour from "../static/Colour";
 
 const ActiveLocaiton = ({ navigation, route }) => {
-  //TODO: Get location during travel
   //TODO: Save location to perminant location during travel
-  let yourPin = route.params.yourPin;
-  let destination = route.params.destination;
+  let yourParams = route.params.yourPin;
+  let destinationParams = route.params.destination;
+
+  const [yourPin, setYourPin] = React.useState({
+    latitude: yourParams["latitude"],
+    longitude: yourParams["longitude"],
+  });
+
+  const [destination, setDestination] = React.useState({
+    latitude: destinationParams["latitude"],
+    longitude: destinationParams["longitude"],
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
+
+  const MINUTE_MS = 30000;
+
+  useEffect(() => {
+    // Get location every minute
+    //TODO: Stop when not on screen?
+    const interval = setInterval(() => {
+      console.log("Active location log");
+
+      const locationPing = (async () => {
+        let location = await ExpoLocation.getCurrentPositionAsync({});
+
+        // yourPin["latitude"] = parseFloat(
+        //   JSON.stringify(location.coords.latitude)
+        // );
+        // yourPin["longitude"] = parseFloat(
+        //   JSON.stringify(location.coords.longitude)
+        // );
+
+        setYourPin({
+          latitude: parseFloat(JSON.stringify(location.coords.latitude)),
+          longitude: parseFloat(JSON.stringify(location.coords.longitude)),
+        });
+      })();
+      console.log("Location end");
+      return locationPing;
+    }, MINUTE_MS);
+
+    console.log("Interval end");
+    return () => {
+      clearInterval(interval);
+    }; // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+  }, []);
 
   const endTripAlert = () =>
     Alert.alert("Stop Trip", "Are you sure?", [
@@ -46,7 +92,7 @@ const ActiveLocaiton = ({ navigation, route }) => {
           destination={{
             latitude: destination.latitude,
             longitude: destination.longitude,
-          }} // Destination pin
+          }}
           apikey={"AIzaSyBuE5BvZEN8DEEqfxMC19gpgLLUF3Lh5Yw"}
           strokeWidth={4}
           strokeColor="#111111"
