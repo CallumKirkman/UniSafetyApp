@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,6 +7,7 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 
 import * as ExpoLocation from "expo-location";
 
@@ -14,9 +15,13 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import MapView, { Callout, Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 
+import { auth } from "../components/firebase";
+import { getLocation } from "../components/firestore";
 import Colour from "../static/Colour";
 
 const Location = ({ navigation }) => {
+  let email = auth.currentUser?.email;
+
   const [yourPin, setYourPin] = React.useState({
     // Bournemouth
     latitude: 50.718395,
@@ -35,46 +40,47 @@ const Location = ({ navigation }) => {
     longitudeDelta: 0.0421,
   });
 
-  useEffect(() => {
-    // Initial location on page open
-    const initialLocation = (async () => {
-      console.log("Initial location");
+  const runGetLocation = async () => {
+    await getLocation(email).then((location) => {
+      if (location != "No such document!") {
+        setYourPin({
+          latitude: location.latitude,
+          longitude: location.longitude,
+        });
+      }
+    });
+  };
 
-      let location = await ExpoLocation.getCurrentPositionAsync({});
+  useFocusEffect(
+    useCallback(() => {
+      // Do something when the screen is focused/mount
+      // console.log("Screen focused");
 
-      setYourPin({
-        latitude: parseFloat(JSON.stringify(location.coords.latitude)),
-        longitude: parseFloat(JSON.stringify(location.coords.longitude)),
-      });
-      return; //TODO: Needed?
-    })();
+      // Get last known location
+      runGetLocation();
 
-    return () => initialLocation;
-  }, []);
+      // Get location
+      const initialLocation = (async () => {
+        console.log("Initial location");
 
-  //TODO: Is this needed?
-  // const MINUTE_MS = 60000;
+        let location = await ExpoLocation.getCurrentPositionAsync({});
 
-  // useEffect(() => {
-  //   // Get location every minute
-  //   //TODO: Stop when not on screen
-  //   const interval = setInterval(() => {
-  //     console.log("Location log");
+        setYourPin({
+          latitude: parseFloat(JSON.stringify(location.coords.latitude)),
+          longitude: parseFloat(JSON.stringify(location.coords.longitude)),
+        });
 
-  //     const locationPing = (async () => {
-  //       let location = await ExpoLocation.getCurrentPositionAsync({});
+        return; //TODO: Needed?
+      })();
 
-  //       setYourPin({
-  //         latitude: parseFloat(JSON.stringify(location.coords.latitude)),
-  //         longitude: parseFloat(JSON.stringify(location.coords.longitude)),
-  //       });
-  //       return;
-  //     })();
-  //     return locationPing;
-  //   }, MINUTE_MS);
+      return () => {
+        // Do something when the screen is unfocused/unmount. Useful for cleanup functions
+        // console.log("Screen unfocused");
 
-  //   return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
-  // }, []);
+        initialLocation;
+      };
+    }, [])
+  );
 
   let waiting = "Waiting for location..";
   if (yourPin.latitude != 50.718395 && yourPin.longitude != -1.883377) {

@@ -6,6 +6,7 @@ const db = firebase.firestore();
 //TODO: Delete user?
 
 // Create user data
+//TODO: Add number if not taken
 const createUser = (email, name, number) => {
   db.collection("Users")
     .doc(email)
@@ -15,6 +16,33 @@ const createUser = (email, name, number) => {
     })
     .then(() => {
       console.log("User added!");
+    });
+};
+
+// Set user location
+const setLocation = (email, latitude, longitude) => {
+  db.collection("Users")
+    .doc(email)
+    .collection("Location")
+    .doc("currentLocation")
+    .set({
+      latitude: latitude,
+      longitude: longitude,
+    })
+    .then(() => {
+      console.log("Location set!");
+    });
+};
+
+// Delete user location
+const deleteLocation = (email) => {
+  db.collection("Users")
+    .doc(email)
+    .collection("Location")
+    .doc("currentLocation")
+    .delete()
+    .then(() => {
+      console.log("Location deleted!");
     });
 };
 
@@ -52,6 +80,22 @@ const getUser = async (email) => {
   return userRef.data();
 };
 
+// Get user location
+const getLocation = async (email) => {
+  const locationRef = await db
+    .collection("Users")
+    .doc(email)
+    .collection("Location")
+    .doc("currentLocation")
+    .get();
+
+  if (!locationRef.exists) {
+    return "No such document!";
+  } else {
+    return locationRef.data();
+  }
+};
+
 // Get all user contacts
 const getContacts = async (email) => {
   let dataArray = [];
@@ -70,4 +114,13 @@ const getContacts = async (email) => {
   return dataArray;
 };
 
-export { createUser, addContact, deleteContact, getUser, getContacts };
+export {
+  createUser,
+  setLocation,
+  deleteLocation,
+  addContact,
+  deleteContact,
+  getUser,
+  getLocation,
+  getContacts,
+};

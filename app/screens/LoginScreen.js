@@ -12,6 +12,7 @@ import { auth } from "../components/firebase";
 import Colour from "../static/Colour";
 
 const Login = ({ navigation }) => {
+  //TODO: Remove last location?
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

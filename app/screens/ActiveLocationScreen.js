@@ -14,10 +14,13 @@ import * as ExpoLocation from "expo-location";
 import MapView, { Callout, Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 
+import { auth } from "../components/firebase";
+import { setLocation } from "../components/firestore";
 import Colour from "../static/Colour";
 
 const ActiveLocaiton = ({ navigation, route }) => {
-  //TODO: Save location to perminant location during travel
+  let email = auth.currentUser?.email;
+
   let yourParams = route.params.yourPin;
   let destinationParams = route.params.destination;
 
@@ -34,7 +37,6 @@ const ActiveLocaiton = ({ navigation, route }) => {
   });
 
   const MINUTE_MS = 30000;
-
   useFocusEffect(
     useCallback(() => {
       // Do something when the screen is focused/mount
@@ -47,10 +49,16 @@ const ActiveLocaiton = ({ navigation, route }) => {
         const locationPing = (async () => {
           let location = await ExpoLocation.getCurrentPositionAsync({});
 
+          let latitude = parseFloat(JSON.stringify(location.coords.latitude));
+          let longitude = parseFloat(JSON.stringify(location.coords.longitude));
+
           setYourPin({
-            latitude: parseFloat(JSON.stringify(location.coords.latitude)),
-            longitude: parseFloat(JSON.stringify(location.coords.longitude)),
+            latitude: latitude,
+            longitude: longitude,
           });
+
+          // Save location to database
+          setLocation(email, latitude, longitude);
         })();
         // console.log("-- Location end");
         return locationPing;
