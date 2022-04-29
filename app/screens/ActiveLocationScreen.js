@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 
 import * as ExpoLocation from "expo-location";
 
@@ -34,36 +35,39 @@ const ActiveLocaiton = ({ navigation, route }) => {
 
   const MINUTE_MS = 30000;
 
-  useEffect(() => {
-    // Get location every minute
-    //TODO: Stop when not on screen?
-    const interval = setInterval(() => {
-      console.log("Active location log");
+  useFocusEffect(
+    useCallback(() => {
+      // Do something when the screen is focused/mount
+      // console.log("Screen focused");
 
-      const locationPing = (async () => {
-        let location = await ExpoLocation.getCurrentPositionAsync({});
+      // Get location every minute
+      const interval = setInterval(() => {
+        console.log("Active location log");
 
-        // yourPin["latitude"] = parseFloat(
-        //   JSON.stringify(location.coords.latitude)
-        // );
-        // yourPin["longitude"] = parseFloat(
-        //   JSON.stringify(location.coords.longitude)
-        // );
+        const locationPing = (async () => {
+          let location = await ExpoLocation.getCurrentPositionAsync({});
 
-        setYourPin({
-          latitude: parseFloat(JSON.stringify(location.coords.latitude)),
-          longitude: parseFloat(JSON.stringify(location.coords.longitude)),
-        });
-      })();
-      console.log("Location end");
-      return locationPing;
-    }, MINUTE_MS);
+          setYourPin({
+            latitude: parseFloat(JSON.stringify(location.coords.latitude)),
+            longitude: parseFloat(JSON.stringify(location.coords.longitude)),
+          });
+        })();
+        // console.log("-- Location end");
+        return locationPing;
+      }, MINUTE_MS);
 
-    console.log("Interval end");
-    return () => {
-      clearInterval(interval);
-    }; // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
-  }, []);
+      return () => {
+        // Do something when the screen is unfocused/unmount. Useful for cleanup functions
+        // console.log("Screen unfocused");
+
+        // console.log("-- Interval end");
+        clearInterval(interval);
+
+        setYourPin({});
+        setDestination({});
+      };
+    }, [])
+  );
 
   const endTripAlert = () =>
     Alert.alert("Stop Trip", "Are you sure?", [

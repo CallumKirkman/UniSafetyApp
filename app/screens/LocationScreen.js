@@ -52,8 +52,8 @@ const Location = ({ navigation }) => {
     return () => initialLocation;
   }, []);
 
-  // //TODO: Is this needed?
-  // // const MINUTE_MS = 60000;
+  //TODO: Is this needed?
+  // const MINUTE_MS = 60000;
 
   // useEffect(() => {
   //   // Get location every minute
