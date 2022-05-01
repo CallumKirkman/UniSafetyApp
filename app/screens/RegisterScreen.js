@@ -15,7 +15,6 @@ import Colour from "../static/Colour";
 const Register = ({ navigation }) => {
   let email = auth.currentUser?.email;
 
-  //TODO: Remove last location?
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
 

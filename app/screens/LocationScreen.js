@@ -69,8 +69,6 @@ const Location = ({ navigation }) => {
           latitude: parseFloat(JSON.stringify(location.coords.latitude)),
           longitude: parseFloat(JSON.stringify(location.coords.longitude)),
         });
-
-        return; //TODO: Needed?
       })();
 
       return () => {

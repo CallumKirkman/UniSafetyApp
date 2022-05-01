@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
 
 //Calling
 import * as Linking from "expo-linking";
@@ -13,9 +14,57 @@ import * as Linking from "expo-linking";
 import * as SMS from "expo-sms";
 
 import { auth } from "../components/firebase";
+import { getContacts, getLocation } from "../components/firestore";
+
 import Colour from "../static/Colour";
 
 const Home = ({ navigation }) => {
+  let email = auth.currentUser?.email;
+
+  const isFocused = useIsFocused();
+
+  const [contactList, setContactList] = useState([]);
+  const [locationMessage, setLocationMessage] = useState("");
+
+  const runGetContacts = async () => {
+    let numberArray = [];
+
+    await getContacts(email).then((collection) => {
+      collection.forEach((item) => {
+        numberArray.push(item.number);
+      });
+      setContactList(numberArray);
+      // console.log(numberArray);
+    });
+  };
+
+  const runGetLocation = async () => {
+    await getLocation(email).then((location) => {
+      if (location != "No such document!") {
+        //TODO: Allow for custom message alert?
+        let message = "This is an alert for my location";
+
+        let coords =
+          " - latitude: " +
+          location.latitude +
+          " longitude: " +
+          location.longitude;
+
+        message = message + coords;
+
+        setLocationMessage(message);
+        // console.log(message);
+      } else {
+        ("No location found, please check");
+      }
+    });
+  };
+
+  useEffect(() => {
+    runGetContacts();
+    runGetLocation();
+  }, [isFocused]);
+
   //Calling
   const callNumber = async () => {
     Linking.openURL("tel://999");
@@ -23,11 +72,7 @@ const Home = ({ navigation }) => {
 
   //Texting
   const sendSMS = async () => {
-    const { result } = await SMS.sendSMSAsync(
-      //TODO: Send location and custom message?
-      ["7928248043", "7974730693"],
-      "Ignore this please, just testing my applications automated texting feature :)"
-    );
+    const { result } = await SMS.sendSMSAsync(contactList, locationMessage);
   };
 
   const signOut = () => {
@@ -92,7 +137,7 @@ const Home = ({ navigation }) => {
         }}
       >
         <TouchableOpacity style={[styles.buttonBar]} onPress={() => {}}>
-          <Text style={styles.buttonText}>Resources?</Text>
+          <Text style={styles.buttonText}>Resources</Text>
         </TouchableOpacity>
       </View>
 
@@ -115,7 +160,7 @@ const Home = ({ navigation }) => {
           }}
         >
           <TouchableOpacity style={[styles.buttonBox]} onPress={sendSMS}>
-            <Text style={styles.buttonText}>Send</Text>
+            <Text style={styles.buttonText}>Alert contacts</Text>
           </TouchableOpacity>
         </View>
         <View
@@ -128,7 +173,7 @@ const Home = ({ navigation }) => {
           }}
         >
           <TouchableOpacity style={[styles.buttonBox]} onPress={callNumber}>
-            <Text style={styles.buttonText}>Call</Text>
+            <Text style={styles.buttonText}>Emergency Services</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -153,7 +198,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   buttonBox: {
-    backgroundColor: Colour.blue,
+    backgroundColor: Colour.red,
     // flex: 1,
     width: "100%",
     height: "90%",

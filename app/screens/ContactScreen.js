@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
-
 import { useIsFocused } from "@react-navigation/native";
 
 import { auth } from "../components/firebase";
