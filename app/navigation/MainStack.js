@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Login from "../screens/LoginScreen";
+import Register from "../screens/RegisterScreen";
 import Home from "../screens/HomeScreen";
 import Location from "../screens/LocationScreen";
 import ActiveLocation from "../screens/ActiveLocationScreen";
@@ -18,6 +19,7 @@ const MainStack = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Location" component={Location} />
         <Stack.Screen name="ActiveLocation" component={ActiveLocation} />

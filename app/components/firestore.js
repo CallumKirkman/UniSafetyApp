@@ -12,7 +12,7 @@ const createUser = (email, name, number) => {
     .doc(email)
     .set({
       name: name,
-      number: number,
+      number: Number(number),
     })
     .then(() => {
       console.log("User added!");

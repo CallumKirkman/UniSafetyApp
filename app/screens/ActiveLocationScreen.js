@@ -84,7 +84,7 @@ const ActiveLocaiton = ({ navigation, route }) => {
         onPress: () => console.log("No Pressed"),
         style: "destructive",
       },
-      { text: "Yes", onPress: () => navigation.navigate("Location") },
+      { text: "Yes", onPress: () => navigation.navigate("Home") },
     ]);
 
   return (

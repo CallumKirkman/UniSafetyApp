@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-// import AsyncStorage from "@react-native-async-storage/async-storage";
 //Calling
 import * as Linking from "expo-linking";
 //Texting
@@ -19,11 +18,13 @@ import Colour from "../static/Colour";
 const Home = ({ navigation }) => {
   //Calling
   const callNumber = async () => {
-    Linking.openURL("tel://+07928248043");
+    Linking.openURL("tel://999");
   };
+
   //Texting
   const sendSMS = async () => {
     const { result } = await SMS.sendSMSAsync(
+      //TODO: Send location and custom message?
       ["7928248043", "7974730693"],
       "Ignore this please, just testing my applications automated texting feature :)"
     );

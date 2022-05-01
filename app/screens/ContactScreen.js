@@ -11,13 +11,7 @@ import {
 import { useIsFocused } from "@react-navigation/native";
 
 import { auth } from "../components/firebase";
-import {
-  createUser,
-  addContact,
-  deleteContact,
-  getUser,
-  getContacts,
-} from "../components/firestore";
+import { getUser, getContacts } from "../components/firestore";
 import Colour from "../static/Colour";
 
 const Contact = ({ navigation }) => {
@@ -56,18 +50,6 @@ const Contact = ({ navigation }) => {
         textColor={{ color }}
       />
     );
-  };
-
-  const runCreateUser = () => {
-    createUser(email, "Users_Name", "9999999999");
-  };
-
-  const runAddContact = () => {
-    addContact(email, "Contact Name6", "9999999999");
-  };
-
-  const runDeleteContact = () => {
-    deleteContact(email, "Contact Name");
   };
 
   const runGetUser = async () => {

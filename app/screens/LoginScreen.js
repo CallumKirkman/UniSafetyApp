@@ -34,6 +34,8 @@ const Login = ({ navigation }) => {
           const user = userCredentials.user;
           console.log("Registered with:", user.email);
         });
+
+      navigation.replace("Register");
     } catch (e) {
       alert("Failed to sign up");
     }
@@ -64,6 +66,7 @@ const Login = ({ navigation }) => {
           placeholder="Email"
           value={email}
           onChangeText={setEmail}
+          keyboardType="email-address"
         />
         <TextInput
           style={styles.input}
@@ -78,6 +81,7 @@ const Login = ({ navigation }) => {
         <TouchableOpacity style={[styles.button]} onPress={logIn}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={[styles.button, styles.buttonOutline]}
           onPress={signUp}
