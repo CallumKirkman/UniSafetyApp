@@ -92,7 +92,14 @@ const Location = ({ navigation }) => {
       </View>
 
       <View style={styles.topButton}>
-        <Button title="Back" onPress={() => navigation.navigate("Home")} />
+        <Button
+          title="Back"
+          onPress={() => {
+            navigation.navigate("Home");
+            setYourPin({});
+            setDestination({});
+          }}
+        />
       </View>
 
       <GooglePlacesAutocomplete
