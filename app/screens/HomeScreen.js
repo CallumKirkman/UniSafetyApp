@@ -5,8 +5,11 @@ import {
   View,
   SafeAreaView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
+
+import * as ExpoLocation from "expo-location";
 
 //Calling
 import * as Linking from "expo-linking";
@@ -60,7 +63,25 @@ const Home = ({ navigation }) => {
     });
   };
 
+  const permissions = async () => {
+    console.log("Permissions check");
+
+    let { status } = await ExpoLocation.requestForegroundPermissionsAsync();
+    if (status == "granted") {
+      console.log("Permissions granted");
+    } else {
+      Alert.alert(
+        "This app requires location services to function, please enable these in your phone settings"
+      );
+    }
+
+    //TODO: Make backround work?
+    // let backPerm = await ExpoLocation.requestBackgroundPermissionsAsync();
+    // console.log(backPerm);
+  };
+
   useEffect(() => {
+    permissions();
     runGetContacts();
     runGetLocation();
   }, [isFocused]);
