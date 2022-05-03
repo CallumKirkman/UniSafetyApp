@@ -6,6 +6,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 
 import { auth } from "../components/firebase";
@@ -38,9 +39,8 @@ const Register = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
-      behavior="padding"
-      keyboardVerticalOffset={100}
     >
       <View style={styles.inputContainer}>
         <TextInput

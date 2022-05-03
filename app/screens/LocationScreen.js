@@ -1,12 +1,5 @@
 import React, { useState, useCallback } from "react";
-import {
-  StyleSheet,
-  Text,
-  SafeAreaView,
-  View,
-  Button,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 
 import * as ExpoLocation from "expo-location";
@@ -86,7 +79,7 @@ const Location = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <View style={{ flex: 1, marginTop: 40 }}>
       <View>
         <Text style={styles.paragraph}>{waiting}</Text>
       </View>
@@ -151,14 +144,14 @@ const Location = ({ navigation }) => {
           destination={{
             latitude: destination.latitude,
             longitude: destination.longitude,
-          }} // Destination pin
+          }}
           apikey={"AIzaSyBuE5BvZEN8DEEqfxMC19gpgLLUF3Lh5Yw"}
           strokeWidth={4}
           strokeColor="#111111"
           mode="WALKING"
         />
 
-        <Marker coordinate={yourPin} pinColor="black">
+        <Marker coordinate={yourPin} pinColor="blue">
           <Callout>
             <Text>You</Text>
           </Callout>
@@ -168,7 +161,7 @@ const Location = ({ navigation }) => {
           coordinate={{
             latitude: destination.latitude,
             longitude: destination.longitude,
-          }} // Destination pin
+          }}
           draggable={true}
           onDragStart={(e) => {
             console.log("Drag start", e.nativeEvent.coordinates);
@@ -196,7 +189,7 @@ const Location = ({ navigation }) => {
           <Text style={styles.buttonText}>Start</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

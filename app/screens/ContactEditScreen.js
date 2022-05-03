@@ -6,6 +6,7 @@ import {
   View,
   KeyboardAvoidingView,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 
 import { auth } from "../components/firebase";
@@ -50,7 +51,10 @@ const ContactEdit = ({ navigation, route }) => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
       <TouchableOpacity
         style={[styles.buttonBox]}
         onPress={() => navigation.navigate("Contact")}

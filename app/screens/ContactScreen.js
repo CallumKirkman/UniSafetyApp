@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
   TouchableOpacity,
   FlatList,
 } from "react-native";
@@ -72,13 +71,12 @@ const Contact = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView
+    <View
       style={{
         flex: 1,
+        marginTop: 25,
       }}
     >
-      <Text style={{ alignSelf: "center" }}>Contact screen</Text>
-
       <View style={styles.topButtons}>
         <TouchableOpacity
           style={[styles.buttonBox]}
@@ -104,7 +102,7 @@ const Contact = ({ navigation }) => {
           <Text style={styles.listEmpty}>No contacts found</Text>
         }
       />
-    </SafeAreaView>
+    </View>
   );
 };
 

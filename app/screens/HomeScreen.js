@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 
 import * as ExpoLocation from "expo-location";
@@ -107,10 +100,11 @@ const Home = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView
+    <View
       style={{
         flex: 1,
         marginHorizontal: 10,
+        marginTop: 20,
       }}
     >
       <View
@@ -201,7 +195,7 @@ const Home = ({ navigation }) => {
 
       {/* <Text>Home screen</Text>
       <Text>Email: {auth.currentUser?.email}</Text> */}
-    </SafeAreaView>
+    </View>
   );
 };
 export default Home;

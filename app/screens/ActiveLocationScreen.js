@@ -1,12 +1,5 @@
 import React, { useState, useCallback } from "react";
-import {
-  StyleSheet,
-  Text,
-  SafeAreaView,
-  View,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 
 import * as ExpoLocation from "expo-location";
@@ -88,7 +81,7 @@ const ActiveLocaiton = ({ navigation, route }) => {
     ]);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <View style={{ flex: 1 }}>
       <MapView
         style={styles.map}
         initialRegion={{
@@ -121,7 +114,7 @@ const ActiveLocaiton = ({ navigation, route }) => {
           coordinate={{
             latitude: destination.latitude,
             longitude: destination.longitude,
-          }} // Destination pin
+          }}
           draggable={false}
         >
           <Callout>
@@ -135,7 +128,7 @@ const ActiveLocaiton = ({ navigation, route }) => {
           <Text style={styles.buttonText}>Stop</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

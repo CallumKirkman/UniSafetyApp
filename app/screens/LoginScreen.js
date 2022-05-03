@@ -6,6 +6,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 
 import { auth } from "../components/firebase";
@@ -56,9 +57,8 @@ const Login = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
-      behavior="padding"
-      keyboardVerticalOffset={100}
     >
       <View style={styles.inputContainer}>
         <TextInput
@@ -66,6 +66,7 @@ const Login = ({ navigation }) => {
           placeholder="Email"
           value={email}
           onChangeText={setEmail}
+          autoCapitalize="none"
           keyboardType="email-address"
         />
         <TextInput
@@ -73,6 +74,7 @@ const Login = ({ navigation }) => {
           placeholder="Password"
           value={password}
           onChangeText={setPassword}
+          autoCapitalize="none"
           secureTextEntry
         />
       </View>
