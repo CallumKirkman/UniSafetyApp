@@ -101,6 +101,7 @@ const Home = ({ navigation }) => {
   return (
     <View
       style={{
+        // TODO: Container?
         flex: 1,
         marginHorizontal: 10,
         marginTop: 20,
@@ -108,6 +109,7 @@ const Home = ({ navigation }) => {
     >
       <View
         style={{
+          // TODO: Container?
           flex: 2,
           //   backgroundColor: "red",
           justifyContent: "center",
@@ -128,6 +130,7 @@ const Home = ({ navigation }) => {
 
       <View
         style={{
+          // TODO: Container?
           flex: 2,
           //   backgroundColor: "darkorange",
           justifyContent: "center",
@@ -144,6 +147,7 @@ const Home = ({ navigation }) => {
 
       <View
         style={{
+          // TODO: Container?
           flex: 2,
           //   backgroundColor: "yellow",
           justifyContent: "center",
@@ -157,6 +161,7 @@ const Home = ({ navigation }) => {
 
       <View
         style={{
+          // TODO: Container?
           flex: 2,
           //   backgroundColor: "green",
           flexDirection: "row",
@@ -166,6 +171,7 @@ const Home = ({ navigation }) => {
       >
         <View
           style={{
+            // TODO: Container?
             flex: 1,
             margin: 10,
             // backgroundColor: "yellow",
@@ -179,6 +185,7 @@ const Home = ({ navigation }) => {
         </View>
         <View
           style={{
+            // TODO: Container?
             flex: 1,
             margin: 10,
             // backgroundColor: "yellow",

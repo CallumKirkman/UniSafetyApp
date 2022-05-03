@@ -12,7 +12,7 @@ import { auth } from "../components/firebase";
 import styles from "../static/Styles";
 
 const Login = ({ navigation }) => {
-  //TODO: Remove last location?
+  //TODO: Remove last location? Or on signout? App open close?
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

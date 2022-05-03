@@ -67,6 +67,7 @@ const Contact = ({ navigation }) => {
   return (
     <View
       style={{
+        // TODO: Container?
         flex: 1,
         marginTop: 25,
       }}

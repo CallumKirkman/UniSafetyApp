@@ -8,7 +8,7 @@ export default StyleSheet.create({
     backgroundColor: Colour.lightGray,
     alignItems: "center",
     justifyContent: "center",
-  },
+  }, // TODO: MarginTop? Does single value work?
 
   map: {
     width: "100%",

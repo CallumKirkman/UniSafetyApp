@@ -6,7 +6,6 @@ const db = firebase.firestore();
 //TODO: Delete user?
 
 // Create user data
-//TODO: Add number if not taken
 const createUser = (email, name, number) => {
   db.collection("Users")
     .doc(email)

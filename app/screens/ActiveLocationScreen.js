@@ -81,6 +81,7 @@ const ActiveLocaiton = ({ navigation, route }) => {
     ]);
 
   return (
+    // TODO: Container?
     <View style={{ flex: 1 }}>
       <MapView
         style={styles.map}

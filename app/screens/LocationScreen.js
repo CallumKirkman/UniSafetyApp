@@ -79,6 +79,7 @@ const Location = ({ navigation }) => {
   }
 
   return (
+    // TODO: Container?
     <View style={{ flex: 1, marginTop: 40 }}>
       <View>
         <Text style={styles.waiting}>{waiting}</Text>
