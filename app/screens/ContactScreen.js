@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
+import { Text, View, TouchableOpacity, FlatList } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 
 import { auth } from "../components/firebase";
 import { getUser, getContacts } from "../components/firestore";
-import Colour from "../static/Colour";
+import styles from "../static/Styles";
 
 const Contact = ({ navigation }) => {
   console.log("Contact screen render");
@@ -107,44 +101,3 @@ const Contact = ({ navigation }) => {
 };
 
 export default Contact;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  topButtons: {
-    padding: 5,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  buttonBox: {
-    backgroundColor: Colour.blue,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 10,
-    margin: 20,
-  },
-  buttonText: {
-    color: Colour.white,
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  item: {
-    padding: 10,
-    marginVertical: 8,
-    marginHorizontal: 30,
-  },
-  title: {
-    fontSize: 32,
-  },
-  listEmpty: {
-    textAlign: "center",
-    fontWeight: "bold",
-    fontSize: 25,
-    marginTop: 70,
-  },
-});

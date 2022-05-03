@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import { Text, View, TouchableOpacity, Alert } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 
 import * as ExpoLocation from "expo-location";
@@ -9,7 +9,7 @@ import MapViewDirections from "react-native-maps-directions";
 
 import { auth } from "../components/firebase";
 import { setLocation } from "../components/firestore";
-import Colour from "../static/Colour";
+import styles from "../static/Styles";
 
 const ActiveLocaiton = ({ navigation, route }) => {
   let email = auth.currentUser?.email;
@@ -123,7 +123,7 @@ const ActiveLocaiton = ({ navigation, route }) => {
         </Marker>
       </MapView>
 
-      <View style={styles.buttonContainer}>
+      <View style={styles.mapButtonContainer}>
         <TouchableOpacity style={styles.button} onPress={endTripAlert}>
           <Text style={styles.buttonText}>Stop</Text>
         </TouchableOpacity>
@@ -133,38 +133,3 @@ const ActiveLocaiton = ({ navigation, route }) => {
 };
 
 export default ActiveLocaiton;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  map: {
-    width: "100%",
-    height: "90%",
-  },
-  topButton: {
-    padding: 5,
-    flexDirection: "row",
-  },
-  buttonContainer: {
-    margin: 10,
-  },
-  button: {
-    backgroundColor: Colour.red,
-    width: "50%",
-    padding: 15,
-    borderRadius: 10,
-    margin: 5,
-    justifyContent: "center",
-    alignSelf: "center",
-  },
-  buttonText: {
-    color: Colour.white,
-    fontWeight: "700",
-    fontSize: 16,
-    alignSelf: "center",
-  },
-});

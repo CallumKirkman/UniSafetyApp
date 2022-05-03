@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  StyleSheet,
   Text,
   TextInput,
   View,
@@ -11,7 +10,7 @@ import {
 
 import { auth } from "../components/firebase";
 import { addContact } from "../components/firestore";
-import Colour from "../static/Colour";
+import styles from "../static/Styles";
 
 const ContactAdd = ({ navigation, route }) => {
   console.log("Contact add screen render");
@@ -52,8 +51,6 @@ const ContactAdd = ({ navigation, route }) => {
         <Text style={styles.buttonText}>Back</Text>
       </TouchableOpacity>
 
-      <Text>ContactAdd screen</Text>
-
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -80,7 +77,7 @@ const ContactAdd = ({ navigation, route }) => {
             <Text style={styles.buttonText}>Add contact</Text>
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity style={styles.buttonValid} onPress={runAddContact}>
+          <TouchableOpacity style={styles.button} onPress={runAddContact}>
             <Text style={styles.buttonText}>Add contact</Text>
           </TouchableOpacity>
         )}
@@ -90,53 +87,3 @@ const ContactAdd = ({ navigation, route }) => {
 };
 
 export default ContactAdd;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colour.lightGray,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  buttonBox: {
-    backgroundColor: Colour.blue,
-    width: "60%",
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 10,
-    margin: 20,
-  },
-  buttonText: {
-    color: Colour.white,
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  inputContainer: { width: "80%" },
-  input: {
-    backgroundColor: Colour.white,
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 10,
-    margin: 5,
-  },
-  buttonContainer: {
-    width: "60%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  buttonValid: {
-    backgroundColor: Colour.blue,
-    width: "100%",
-    padding: 15,
-    borderRadius: 10,
-    margin: 5,
-  },
-  buttonInvalid: {
-    backgroundColor: Colour.mediumGray,
-    width: "100%",
-    padding: 15,
-    borderRadius: 10,
-    margin: 5,
-  },
-});

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import { Text, View, TouchableOpacity, Alert } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 
 import * as ExpoLocation from "expo-location";
@@ -11,8 +11,7 @@ import * as SMS from "expo-sms";
 
 import { auth } from "../components/firebase";
 import { getContacts, getLocation } from "../components/firestore";
-
-import Colour from "../static/Colour";
+import styles from "../static/Styles";
 
 const Home = ({ navigation }) => {
   let email = auth.currentUser?.email;
@@ -174,7 +173,7 @@ const Home = ({ navigation }) => {
             alignItems: "center",
           }}
         >
-          <TouchableOpacity style={[styles.buttonBox]} onPress={sendSMS}>
+          <TouchableOpacity style={[styles.homeButtonBox]} onPress={sendSMS}>
             <Text style={styles.buttonText}>Alert contacts</Text>
           </TouchableOpacity>
         </View>
@@ -187,7 +186,7 @@ const Home = ({ navigation }) => {
             alignItems: "center",
           }}
         >
-          <TouchableOpacity style={[styles.buttonBox]} onPress={callNumber}>
+          <TouchableOpacity style={[styles.homeButtonBox]} onPress={callNumber}>
             <Text style={styles.buttonText}>Emergency Services</Text>
           </TouchableOpacity>
         </View>
@@ -199,53 +198,3 @@ const Home = ({ navigation }) => {
   );
 };
 export default Home;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  buttonContainer: {
-    width: "60%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  buttonBox: {
-    backgroundColor: Colour.red,
-    // flex: 1,
-    width: "100%",
-    height: "90%",
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  buttonBar: {
-    backgroundColor: Colour.blue,
-    width: "100%",
-    height: "50%",
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  buttonText: {
-    color: Colour.white,
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  signoutButton: {
-    backgroundColor: Colour.red,
-    width: "40%",
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 10,
-    margin: 20,
-  },
-  signoutText: {
-    color: Colour.black,
-    fontWeight: "700",
-    fontSize: 16,
-  },
-});
