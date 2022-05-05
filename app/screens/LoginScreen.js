@@ -87,7 +87,7 @@ const Login = ({ navigation }) => {
           style={[styles.button, styles.buttonOutline]}
           onPress={signUp}
         >
-          <Text style={styles.buttonOutlineText}>Register</Text>
+          <Text style={styles.buttonText}>Register</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>

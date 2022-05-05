@@ -5,6 +5,7 @@ import { useIsFocused } from "@react-navigation/native";
 import { auth } from "../components/firebase";
 import { getUser, getContacts } from "../components/firestore";
 import styles from "../static/Styles";
+import Colour from "../static/Colour";
 
 const Contact = ({ navigation }) => {
   console.log("Contact screen render");
@@ -28,8 +29,10 @@ const Contact = ({ navigation }) => {
   );
 
   const renderItem = ({ item }) => {
-    const backgroundColor = item.number === selectedId ? "#6e3b6e" : "#f9c2ff";
-    const color = item.number === selectedId ? "white" : "black";
+    const backgroundColor =
+      item.number === selectedId ? Colour.highlight : Colour.secondary;
+    const color =
+      item.number === selectedId ? Colour.primary : Colour.highlight;
 
     return (
       <Item
@@ -65,38 +68,34 @@ const Contact = ({ navigation }) => {
   };
 
   return (
-    <View
-      style={{
-        // TODO: Container?
-        flex: 1,
-        marginTop: 25,
-      }}
-    >
-      <View style={styles.topButtons}>
-        <TouchableOpacity
-          style={[styles.buttonBox]}
-          onPress={() => navigation.navigate("Home")}
-        >
-          <Text style={styles.buttonText}>Back</Text>
-        </TouchableOpacity>
+    <View style={[styles.contactContainer]}>
+      <View style={[styles.contactBuffer]}>
+        <View style={styles.topButtons}>
+          <TouchableOpacity
+            style={[styles.buttonBox]}
+            onPress={() => navigation.navigate("Home")}
+          >
+            <Text style={styles.buttonText}>Back</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={[styles.buttonBox]}
-          onPress={() => navigation.navigate("ContactAdd", { numberList })}
-        >
-          <Text style={styles.buttonText}>+</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.buttonBox]}
+            onPress={() => navigation.navigate("ContactAdd", { numberList })}
+          >
+            <Text style={styles.buttonText}>+</Text>
+          </TouchableOpacity>
+        </View>
+
+        <FlatList
+          data={contacts}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.number}
+          extraData={selectedId}
+          ListEmptyComponent={
+            <Text style={styles.listEmpty}>No contacts found</Text>
+          }
+        />
       </View>
-
-      <FlatList
-        data={contacts}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.number}
-        extraData={selectedId}
-        ListEmptyComponent={
-          <Text style={styles.listEmpty}>No contacts found</Text>
-        }
-      />
     </View>
   );
 };

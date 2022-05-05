@@ -5,7 +5,7 @@ export default StyleSheet.create({
   //Shared
   container: {
     flex: 1,
-    backgroundColor: Colour.lightGray,
+    backgroundColor: Colour.background,
     alignItems: "center",
     justifyContent: "center",
   }, // TODO: MarginTop? Does single value work?
@@ -16,15 +16,6 @@ export default StyleSheet.create({
   },
   mapButtonContainer: {
     margin: 10,
-  },
-  mapButton: {
-    backgroundColor: Colour.red,
-    width: "50%",
-    padding: 15,
-    borderRadius: 10,
-    margin: 5,
-    justifyContent: "center",
-    alignSelf: "center",
   },
 
   topButton: {
@@ -37,20 +28,24 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
   button: {
-    backgroundColor: Colour.blue,
+    backgroundColor: Colour.primary,
     width: "100%",
     padding: 15,
     borderRadius: 10,
     margin: 5,
+    borderColor: Colour.highlight,
+    borderWidth: 2,
   },
   buttonBox: {
     // Contact edit & add
-    backgroundColor: Colour.blue,
+    backgroundColor: Colour.primary,
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
     padding: 10,
     margin: 20,
+    borderColor: Colour.highlight,
+    borderWidth: 2,
   },
   buttonInvalid: {
     backgroundColor: Colour.mediumGray,
@@ -60,19 +55,13 @@ export default StyleSheet.create({
     margin: 5,
   },
   buttonOutline: {
-    backgroundColor: Colour.white,
-    borderColor: Colour.blue,
+    backgroundColor: Colour.secondary,
+    borderColor: Colour.highlight,
     borderWidth: 2,
   },
 
   buttonText: {
-    color: Colour.white,
-    fontWeight: "700",
-    fontSize: 16,
-    alignSelf: "center",
-  },
-  buttonOutlineText: {
-    color: Colour.blue,
+    color: Colour.highlight,
     fontWeight: "700",
     fontSize: 16,
     alignSelf: "center",
@@ -88,10 +77,6 @@ export default StyleSheet.create({
   },
 
   //Active location
-  // map: {
-  //   width: "100%",
-  //   height: "90%",
-  // }, // Needed after add buttons for call & text?
 
   //Contact add
 
@@ -104,14 +89,24 @@ export default StyleSheet.create({
     justifyContent: "center",
     padding: 10,
     margin: 20,
+    borderColor: Colour.highlight,
+    borderWidth: 2,
   },
   deleteText: {
-    color: Colour.black,
+    color: Colour.highlight,
     fontWeight: "700",
     fontSize: 16,
   },
 
   //Contact
+  contactContainer: {
+    flex: 1,
+    backgroundColor: Colour.background,
+  },
+  contactBuffer: {
+    flex: 1,
+    marginTop: 25,
+  },
   topButtons: {
     padding: 5,
     flexDirection: "row",
@@ -121,6 +116,8 @@ export default StyleSheet.create({
     padding: 10,
     marginVertical: 8,
     marginHorizontal: 30,
+    borderColor: Colour.highlight,
+    borderWidth: 2,
   },
   title: {
     fontSize: 32,
@@ -133,40 +130,72 @@ export default StyleSheet.create({
   },
 
   //Home
+  homeContainer: {
+    flex: 1,
+    backgroundColor: Colour.background,
+  },
+  containerBuffer: {
+    flex: 1,
+    marginHorizontal: 10,
+    marginTop: 20,
+  },
   homeButtonBox: {
-    backgroundColor: Colour.red,
+    backgroundColor: Colour.primary,
     width: "100%",
     height: "90%",
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
+    borderColor: Colour.highlight,
+    borderWidth: 2,
+  },
+  buttonBarContainer: {
+    flex: 2,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  squareButtonContainer: {
+    flex: 1,
+    margin: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  rowContainer: {
+    flex: 2,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   buttonBar: {
-    backgroundColor: Colour.blue,
+    backgroundColor: Colour.primary,
     width: "100%",
     height: "50%",
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
+    borderColor: Colour.highlight,
+    borderWidth: 2,
   },
   signoutButton: {
-    backgroundColor: Colour.red,
+    backgroundColor: Colour.secondary,
     width: "40%",
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
     padding: 10,
     margin: 20,
+    borderColor: Colour.highlight,
+    borderWidth: 2,
   },
   signoutText: {
-    color: Colour.black,
+    color: Colour.highlight,
     fontWeight: "700",
     fontSize: 16,
   },
 
   //Location
   waiting: {
-    color: Colour.black,
+    color: Colour.highlight,
     fontWeight: "700",
     fontSize: 18,
     alignSelf: "center",

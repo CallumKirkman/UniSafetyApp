@@ -1,12 +1,11 @@
 export default {
   black: "#000000",
-  mediumGray: "#9b9aa1",
-  lightGray: "#DBDBDB",
-  lightWarmGray: "#f5f5f5",
-  offWhite: "#F8F8F8",
   white: "#ffffff",
+  mediumGray: "#9b9aa1",
   red: "#FF0000",
-  green: "#299936",
-  blue: "#0000FF",
-  darkPurple: "#282b36",
+
+  primary: "#274060",
+  secondary: "#1B2845",
+  highlight: "#C4FFF9",
+  background: "#6699CC",
 };

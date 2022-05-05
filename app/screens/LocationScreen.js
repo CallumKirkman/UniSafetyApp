@@ -9,7 +9,8 @@ import MapView, { Callout, Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 
 import { auth } from "../components/firebase";
-import { getLocation } from "../components/firestore";
+import { getLocation, setLocation } from "../components/firestore";
+import Colour from "../static/Colour";
 import styles from "../static/Styles";
 
 const Location = ({ navigation }) => {
@@ -58,10 +59,16 @@ const Location = ({ navigation }) => {
 
         let location = await ExpoLocation.getCurrentPositionAsync({});
 
+        let latitude = parseFloat(JSON.stringify(location.coords.latitude));
+        let longitude = parseFloat(JSON.stringify(location.coords.longitude));
+
         setYourPin({
-          latitude: parseFloat(JSON.stringify(location.coords.latitude)),
-          longitude: parseFloat(JSON.stringify(location.coords.longitude)),
+          latitude: latitude,
+          longitude: longitude,
         });
+
+        // Save location to database
+        setLocation(email, latitude, longitude);
       })();
 
       return () => {
@@ -80,115 +87,117 @@ const Location = ({ navigation }) => {
 
   return (
     // TODO: Container?
-    <View style={{ flex: 1, marginTop: 40 }}>
-      <View>
-        <Text style={styles.waiting}>{waiting}</Text>
-      </View>
+    <View style={{ flex: 1, backgroundColor: Colour.background }}>
+      <View style={{ flex: 1, marginTop: 40 }}>
+        <View>
+          <Text style={styles.waiting}>{waiting}</Text>
+        </View>
 
-      <View style={styles.topButton}>
-        <Button
-          title="Back"
-          onPress={() => {
-            navigation.navigate("Home");
-            setYourPin({});
-            setDestination({});
+        <View style={styles.topButton}>
+          <Button
+            title="Back"
+            onPress={() => {
+              navigation.navigate("Home");
+              setYourPin({});
+              setDestination({});
+            }}
+          />
+        </View>
+
+        <GooglePlacesAutocomplete
+          placeholder="Search"
+          fetchDetails={true}
+          GooglePlacesSearchQuery={{
+            rankby: "distance",
           }}
-        />
-      </View>
-
-      <GooglePlacesAutocomplete
-        placeholder="Search"
-        fetchDetails={true}
-        GooglePlacesSearchQuery={{
-          rankby: "distance",
-        }}
-        onPress={(data, details = null) => {
-          // 'details' is provided when fetchDetails = true
-          // console.log(data, details);
-          setDestination({
-            latitude: details.geometry.location.lat,
-            longitude: details.geometry.location.lng,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          });
-        }}
-        query={{
-          key: "AIzaSyBuE5BvZEN8DEEqfxMC19gpgLLUF3Lh5Yw",
-          language: "en",
-          components: "country:uk",
-          radius: 5000,
-          location: `${yourPin.latitude}, ${yourPin.longitude}`,
-        }}
-        styles={{
-          container: {
-            flex: 0,
-            // position: "absolute",
-            width: "100%",
-            zIndex: 1,
-          },
-          listView: { backgroundColor: "white" },
-        }}
-      />
-
-      <MapView
-        style={styles.map}
-        initialRegion={{
-          latitude: yourPin.latitude,
-          longitude: yourPin.longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-        provider="google"
-      >
-        <MapViewDirections
-          origin={yourPin}
-          destination={{
-            latitude: destination.latitude,
-            longitude: destination.longitude,
-          }}
-          apikey={"AIzaSyBuE5BvZEN8DEEqfxMC19gpgLLUF3Lh5Yw"}
-          strokeWidth={4}
-          strokeColor="#111111"
-          mode="WALKING"
-        />
-
-        <Marker coordinate={yourPin} pinColor="blue">
-          <Callout>
-            <Text>You</Text>
-          </Callout>
-        </Marker>
-
-        <Marker
-          coordinate={{
-            latitude: destination.latitude,
-            longitude: destination.longitude,
-          }}
-          draggable={true}
-          onDragStart={(e) => {
-            console.log("Drag start", e.nativeEvent.coordinates);
-          }}
-          onDragEnd={(e) => {
+          onPress={(data, details = null) => {
+            // 'details' is provided when fetchDetails = true
+            // console.log(data, details);
             setDestination({
-              latitude: e.nativeEvent.coordinate.latitude,
-              longitude: e.nativeEvent.coordinate.longitude,
+              latitude: details.geometry.location.lat,
+              longitude: details.geometry.location.lng,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
             });
           }}
-        >
-          <Callout>
-            <Text>Your destination</Text>
-          </Callout>
-        </Marker>
-      </MapView>
+          query={{
+            key: "AIzaSyBuE5BvZEN8DEEqfxMC19gpgLLUF3Lh5Yw",
+            language: "en",
+            components: "country:uk",
+            radius: 5000,
+            location: `${yourPin.latitude}, ${yourPin.longitude}`,
+          }}
+          styles={{
+            container: {
+              flex: 0,
+              // position: "absolute",
+              width: "100%",
+              zIndex: 1,
+            },
+            listView: { backgroundColor: "white" },
+          }}
+        />
 
-      <View style={styles.mapButtonContainer}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() =>
-            navigation.navigate("ActiveLocation", { yourPin, destination })
-          }
+        <MapView
+          style={styles.map}
+          initialRegion={{
+            latitude: yourPin.latitude,
+            longitude: yourPin.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+          provider="google"
         >
-          <Text style={styles.buttonText}>Start</Text>
-        </TouchableOpacity>
+          <MapViewDirections
+            origin={yourPin}
+            destination={{
+              latitude: destination.latitude,
+              longitude: destination.longitude,
+            }}
+            apikey={"AIzaSyBuE5BvZEN8DEEqfxMC19gpgLLUF3Lh5Yw"}
+            strokeWidth={4}
+            strokeColor="#111111"
+            mode="WALKING"
+          />
+
+          <Marker coordinate={yourPin} pinColor="blue">
+            <Callout>
+              <Text>You</Text>
+            </Callout>
+          </Marker>
+
+          <Marker
+            coordinate={{
+              latitude: destination.latitude,
+              longitude: destination.longitude,
+            }}
+            draggable={true}
+            onDragStart={(e) => {
+              console.log("Drag start", e.nativeEvent.coordinates);
+            }}
+            onDragEnd={(e) => {
+              setDestination({
+                latitude: e.nativeEvent.coordinate.latitude,
+                longitude: e.nativeEvent.coordinate.longitude,
+              });
+            }}
+          >
+            <Callout>
+              <Text>Your destination</Text>
+            </Callout>
+          </Marker>
+        </MapView>
+
+        <View style={styles.mapButtonContainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() =>
+              navigation.navigate("ActiveLocation", { yourPin, destination })
+            }
+          >
+            <Text style={styles.buttonText}>Start</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

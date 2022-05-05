@@ -7,15 +7,23 @@ import * as ExpoLocation from "expo-location";
 import MapView, { Callout, Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 
+//Texting
+import * as SMS from "expo-sms";
+//Calling
+import * as Linking from "expo-linking";
+
 import { auth } from "../components/firebase";
-import { setLocation } from "../components/firestore";
+import { getContacts, getLocation, setLocation } from "../components/firestore";
 import styles from "../static/Styles";
+import Colour from "../static/Colour";
 
 const ActiveLocaiton = ({ navigation, route }) => {
   let email = auth.currentUser?.email;
 
   let yourParams = route.params.yourPin;
   let destinationParams = route.params.destination;
+
+  const [contactList, setContactList] = useState([]);
 
   const [yourPin, setYourPin] = React.useState({
     latitude: yourParams["latitude"],
@@ -29,11 +37,24 @@ const ActiveLocaiton = ({ navigation, route }) => {
     longitudeDelta: 0.0421,
   });
 
+  const runGetContacts = async () => {
+    let numberArray = [];
+
+    await getContacts(email).then((collection) => {
+      collection.forEach((item) => {
+        numberArray.push(item.number);
+      });
+      setContactList(numberArray);
+      // console.log(numberArray);
+    });
+  };
+
   const MINUTE_MS = 30000;
   useFocusEffect(
     useCallback(() => {
       // Do something when the screen is focused/mount
       // console.log("Screen focused");
+      runGetContacts();
 
       // Get location every minute
       const interval = setInterval(() => {
@@ -70,6 +91,23 @@ const ActiveLocaiton = ({ navigation, route }) => {
     }, [])
   );
 
+  //Texting
+  const sendSMS = async () => {
+    let message = "This is an alert for my location";
+
+    let coords =
+      " - latitude: " + yourPin.latitude + " longitude: " + yourPin.longitude;
+
+    message = message + coords;
+
+    const { result } = await SMS.sendSMSAsync(contactList, message);
+  };
+
+  //Calling
+  const callNumber = async () => {
+    Linking.openURL("tel://999");
+  };
+
   const endTripAlert = () =>
     Alert.alert("Stop Trip", "Are you sure?", [
       {
@@ -82,7 +120,7 @@ const ActiveLocaiton = ({ navigation, route }) => {
 
   return (
     // TODO: Container?
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: Colour.background }}>
       <MapView
         style={styles.map}
         initialRegion={{
@@ -125,8 +163,19 @@ const ActiveLocaiton = ({ navigation, route }) => {
       </MapView>
 
       <View style={styles.mapButtonContainer}>
-        <TouchableOpacity style={styles.button} onPress={endTripAlert}>
-          <Text style={styles.buttonText}>Stop</Text>
+        <TouchableOpacity style={styles.button} onPress={sendSMS}>
+          <Text style={styles.buttonText}>Alert contacts</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={callNumber}>
+          <Text style={styles.buttonText}>Emergency Services</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.button, styles.buttonOutline]}
+          onPress={endTripAlert}
+        >
+          <Text style={styles.buttonText}>Stop Journey</Text>
         </TouchableOpacity>
       </View>
     </View>
