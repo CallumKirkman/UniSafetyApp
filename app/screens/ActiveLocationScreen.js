@@ -91,22 +91,31 @@ const ActiveLocaiton = ({ navigation, route }) => {
     }, [])
   );
 
-  //Texting
+  // Texting
   const sendSMS = async () => {
-    let message = "This is an alert for my location";
+    let message = "This is an alert for my location: latitude, longitude: ";
 
-    let coords =
-      " - latitude: " + yourPin.latitude + " longitude: " + yourPin.longitude;
+    let coords = yourPin.latitude + " " + yourPin.longitude;
 
     message = message + coords;
 
     const { result } = await SMS.sendSMSAsync(contactList, message);
   };
 
-  //Calling
-  const callNumber = async () => {
-    Linking.openURL("tel://999");
-  };
+  // Calling
+  const callingAlert = () =>
+    Alert.alert("Emergency Call", "Choose which contact to call", [
+      {
+        text: "University",
+        onPress: () => Linking.openURL("tel://01202962222"),
+      },
+      { text: "Police", onPress: () => Linking.openURL("tel://999") },
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "destructive",
+      },
+    ]);
 
   const endTripAlert = () =>
     Alert.alert("Stop Trip", "Are you sure?", [
@@ -167,7 +176,7 @@ const ActiveLocaiton = ({ navigation, route }) => {
           <Text style={styles.buttonText}>Alert contacts</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={callNumber}>
+        <TouchableOpacity style={styles.button} onPress={callingAlert}>
           <Text style={styles.buttonText}>Emergency Services</Text>
         </TouchableOpacity>
 

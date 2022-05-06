@@ -19,7 +19,6 @@ export default StyleSheet.create({
   },
 
   topButton: {
-    padding: 5,
     flexDirection: "row",
   },
   buttonContainer: {
@@ -31,7 +30,7 @@ export default StyleSheet.create({
     backgroundColor: Colour.primary,
     width: "100%",
     padding: 15,
-    borderRadius: 10,
+    borderRadius: 15,
     margin: 5,
     borderColor: Colour.highlight,
     borderWidth: 2,
@@ -39,7 +38,7 @@ export default StyleSheet.create({
   buttonBox: {
     // Contact edit & add
     backgroundColor: Colour.primary,
-    borderRadius: 10,
+    borderRadius: 15,
     alignItems: "center",
     justifyContent: "center",
     padding: 10,
@@ -47,11 +46,21 @@ export default StyleSheet.create({
     borderColor: Colour.highlight,
     borderWidth: 2,
   },
+  backButton: {
+    backgroundColor: Colour.primary,
+    borderRadius: 15,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 10,
+    margin: 5,
+    borderColor: Colour.highlight,
+    borderWidth: 2,
+  },
   buttonInvalid: {
     backgroundColor: Colour.mediumGray,
     width: "100%",
     padding: 15,
-    borderRadius: 10,
+    borderRadius: 15,
     margin: 5,
   },
   buttonOutline: {
@@ -72,8 +81,16 @@ export default StyleSheet.create({
     backgroundColor: Colour.white,
     paddingHorizontal: 15,
     paddingVertical: 10,
-    borderRadius: 10,
+    borderRadius: 15,
     margin: 5,
+  },
+
+  //Location
+  waiting: {
+    color: Colour.highlight,
+    fontWeight: "700",
+    fontSize: 18,
+    alignSelf: "center",
   },
 
   //Active location
@@ -84,7 +101,7 @@ export default StyleSheet.create({
   deleteButton: {
     backgroundColor: Colour.red,
     width: "60%",
-    borderRadius: 10,
+    borderRadius: 15,
     alignItems: "center",
     justifyContent: "center",
     padding: 10,
@@ -127,6 +144,7 @@ export default StyleSheet.create({
     fontWeight: "bold",
     fontSize: 25,
     marginTop: 70,
+    color: Colour.highlight,
   },
 
   //Home
@@ -143,11 +161,12 @@ export default StyleSheet.create({
     backgroundColor: Colour.primary,
     width: "100%",
     height: "90%",
-    borderRadius: 10,
+    borderRadius: 15,
     alignItems: "center",
     justifyContent: "center",
     borderColor: Colour.highlight,
     borderWidth: 2,
+    marginBottom: 30,
   },
   buttonBarContainer: {
     flex: 2,
@@ -170,7 +189,7 @@ export default StyleSheet.create({
     backgroundColor: Colour.primary,
     width: "100%",
     height: "50%",
-    borderRadius: 10,
+    borderRadius: 15,
     alignItems: "center",
     justifyContent: "center",
     borderColor: Colour.highlight,
@@ -179,7 +198,7 @@ export default StyleSheet.create({
   signoutButton: {
     backgroundColor: Colour.secondary,
     width: "40%",
-    borderRadius: 10,
+    borderRadius: 15,
     alignItems: "center",
     justifyContent: "center",
     padding: 10,
@@ -193,12 +212,11 @@ export default StyleSheet.create({
     fontSize: 16,
   },
 
-  //Location
-  waiting: {
-    color: Colour.highlight,
-    fontWeight: "700",
-    fontSize: 18,
-    alignSelf: "center",
+  //Resources
+  resourcesBuffer: {
+    flex: 1,
+    marginHorizontal: 10,
+    marginTop: 35,
   },
 
   //Login

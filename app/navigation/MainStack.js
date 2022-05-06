@@ -11,6 +11,7 @@ import ActiveLocation from "../screens/ActiveLocationScreen";
 import Contact from "../screens/ContactScreen";
 import ContactAdd from "../screens/ContactAddScreen";
 import ContactEdit from "../screens/ContactEditScreen";
+import Resources from "../screens/ResourcesScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,7 @@ const MainStack = () => {
         <Stack.Screen name="Contact" component={Contact} />
         <Stack.Screen name="ContactAdd" component={ContactAdd} />
         <Stack.Screen name="ContactEdit" component={ContactEdit} />
+        <Stack.Screen name="Resources" component={Resources} />
       </Stack.Navigator>
     </NavigationContainer>
   );

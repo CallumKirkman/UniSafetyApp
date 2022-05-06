@@ -37,13 +37,9 @@ const Home = ({ navigation }) => {
     await getLocation(email).then((location) => {
       if (location != "No such document!") {
         //TODO: Allow for custom message alert?
-        let message = "This is an alert for my location";
+        let message = "This is an alert for my location: latitude, longitude: ";
 
-        let coords =
-          " - latitude: " +
-          location.latitude +
-          " longitude: " +
-          location.longitude;
+        let coords = location.latitude + " " + location.longitude;
 
         message = message + coords;
 
@@ -78,15 +74,25 @@ const Home = ({ navigation }) => {
     runGetLocation();
   }, [isFocused]);
 
-  //Texting
+  // Texting
   const sendSMS = async () => {
     const { result } = await SMS.sendSMSAsync(contactList, locationMessage);
   };
 
-  //Calling
-  const callNumber = async () => {
-    Linking.openURL("tel://999");
-  };
+  // Calling
+  const callingAlert = () =>
+    Alert.alert("Emergency Call", "Choose which contact to call", [
+      {
+        text: "University",
+        onPress: () => Linking.openURL("tel://01202962222"),
+      },
+      { text: "Police", onPress: () => Linking.openURL("tel://999") },
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "destructive",
+      },
+    ]);
 
   const signOut = () => {
     try {
@@ -110,7 +116,7 @@ const Home = ({ navigation }) => {
             style={[styles.buttonBar]}
             onPress={() => navigation.navigate("Location")}
           >
-            <Text style={styles.buttonText}>Start Journey</Text>
+            <Text style={styles.buttonText}>Plan Journey</Text>
           </TouchableOpacity>
         </View>
 
@@ -119,12 +125,15 @@ const Home = ({ navigation }) => {
             style={[styles.buttonBar]}
             onPress={() => navigation.navigate("Contact")}
           >
-            <Text style={styles.buttonText}>Edit Contacts</Text>
+            <Text style={styles.buttonText}>Add/Edit Contacts</Text>
           </TouchableOpacity>
         </View>
 
         <View style={[styles.buttonBarContainer]}>
-          <TouchableOpacity style={[styles.buttonBar]} onPress={() => {}}>
+          <TouchableOpacity
+            style={[styles.buttonBar]}
+            onPress={() => navigation.navigate("Resources")}
+          >
             <Text style={styles.buttonText}>Resources & Information</Text>
           </TouchableOpacity>
         </View>
@@ -138,9 +147,11 @@ const Home = ({ navigation }) => {
           <View style={[styles.squareButtonContainer]}>
             <TouchableOpacity
               style={[styles.homeButtonBox]}
-              onPress={callNumber}
+              onPress={callingAlert}
             >
-              <Text style={styles.buttonText}>Emergency Services</Text>
+              <Text style={styles.buttonText}>
+                Emergency Call Police / University
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

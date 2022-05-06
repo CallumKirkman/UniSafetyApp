@@ -82,7 +82,7 @@ const Contact = ({ navigation }) => {
             style={[styles.buttonBox]}
             onPress={() => navigation.navigate("ContactAdd", { numberList })}
           >
-            <Text style={styles.buttonText}>+</Text>
+            <Text style={styles.buttonText}>Add contact</Text>
           </TouchableOpacity>
         </View>
 

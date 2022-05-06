@@ -55,12 +55,14 @@ const ContactAdd = ({ navigation, route }) => {
         <TextInput
           style={styles.input}
           placeholder="Contact Name"
+          placeholderTextColor="gray"
           value={name}
           onChangeText={setName}
         />
         <TextInput
           style={styles.input}
           placeholder="Contact Number"
+          placeholderTextColor="gray"
           value={number}
           onChangeText={setNumber}
           keyboardType="numeric"

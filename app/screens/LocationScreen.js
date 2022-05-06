@@ -87,25 +87,33 @@ const Location = ({ navigation }) => {
 
   return (
     // TODO: Container?
-    <View style={{ flex: 1, backgroundColor: Colour.background }}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: Colour.background,
+      }}
+    >
       <View style={{ flex: 1, marginTop: 40 }}>
         <View>
           <Text style={styles.waiting}>{waiting}</Text>
         </View>
 
         <View style={styles.topButton}>
-          <Button
-            title="Back"
+          <TouchableOpacity
+            style={[styles.backButton]}
             onPress={() => {
               navigation.navigate("Home");
               setYourPin({});
               setDestination({});
             }}
-          />
+          >
+            <Text style={styles.buttonText}>Back</Text>
+          </TouchableOpacity>
         </View>
 
         <GooglePlacesAutocomplete
-          placeholder="Search"
+          placeholder="Search destination"
+          textInputProps={{ placeholderTextColor: "gray" }}
           fetchDetails={true}
           GooglePlacesSearchQuery={{
             rankby: "distance",

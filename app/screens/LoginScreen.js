@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   Platform,
+  Alert,
 } from "react-native";
 
 import { auth } from "../components/firebase";
@@ -37,7 +38,10 @@ const Login = ({ navigation }) => {
 
       navigation.replace("Register");
     } catch (e) {
-      alert("Failed to sign up");
+      Alert.alert(
+        "Failed to sign up",
+        "Please check for correct email and password"
+      );
     }
   };
 
@@ -50,7 +54,10 @@ const Login = ({ navigation }) => {
           console.log("Logged in with:", user.email);
         });
     } catch (e) {
-      alert("Failed to log in");
+      Alert.alert(
+        "Failed to log in",
+        "Please check for correct email and password"
+      );
     }
   };
 
@@ -63,6 +70,7 @@ const Login = ({ navigation }) => {
         <TextInput
           style={styles.input}
           placeholder="Email"
+          placeholderTextColor="gray"
           value={email}
           onChangeText={setEmail}
           autoCapitalize="none"
@@ -71,6 +79,7 @@ const Login = ({ navigation }) => {
         <TextInput
           style={styles.input}
           placeholder="Password"
+          placeholderTextColor="gray"
           value={password}
           onChangeText={setPassword}
           autoCapitalize="none"

@@ -45,12 +45,14 @@ const Register = ({ navigation }) => {
         <TextInput
           style={styles.input}
           placeholder="Name"
+          placeholderTextColor="gray"
           value={name}
           onChangeText={setName}
         />
         <TextInput
           style={styles.input}
           placeholder="Mobile number"
+          placeholderTextColor="gray"
           value={number}
           onChangeText={setNumber}
           keyboardType="numeric"
