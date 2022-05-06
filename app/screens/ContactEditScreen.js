@@ -31,8 +31,8 @@ const ContactEdit = ({ navigation, route }) => {
       route.params.numberList.splice(index, 1); // 2nd parameter means remove one item only
     }
 
-    if (number.length === 10 && name != "") {
-      if (route.params.numberList.includes(Number(number)) === false) {
+    if (number.length === 11 && name != "") {
+      if (route.params.numberList.includes(number) === false) {
         // Contact does not exist
         setDisabledStatus(false);
       }

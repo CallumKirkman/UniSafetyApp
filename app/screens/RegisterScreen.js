@@ -21,7 +21,7 @@ const Register = ({ navigation }) => {
   const [disabledStatus, setDisabledStatus] = useState(true);
 
   useEffect(() => {
-    if (number.length === 10 && name != "") {
+    if (number.length === 11 && name != "") {
       //TODO: If number not in use?
       setDisabledStatus(false);
     } else {

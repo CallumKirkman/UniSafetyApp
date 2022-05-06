@@ -15,7 +15,8 @@ export default StyleSheet.create({
     height: "75%",
   },
   mapButtonContainer: {
-    margin: 10,
+    margin: 5,
+    marginBottom: 10,
   },
 
   topButton: {

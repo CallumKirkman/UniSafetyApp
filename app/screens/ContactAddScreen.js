@@ -22,8 +22,8 @@ const ContactAdd = ({ navigation, route }) => {
   const [disabledStatus, setDisabledStatus] = useState(true);
 
   useEffect(() => {
-    if (number.length === 10 && name != "") {
-      if (route.params.numberList.includes(Number(number)) === false) {
+    if (number.length === 11 && name != "") {
+      if (route.params.numberList.includes(number) === false) {
         // Contact does not exist
         setDisabledStatus(false);
       }

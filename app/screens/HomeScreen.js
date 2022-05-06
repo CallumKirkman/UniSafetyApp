@@ -83,15 +83,15 @@ const Home = ({ navigation }) => {
   const callingAlert = () =>
     Alert.alert("Emergency Call", "Choose which contact to call", [
       {
-        text: "University",
-        onPress: () => Linking.openURL("tel://01202962222"),
-      },
-      { text: "Police", onPress: () => Linking.openURL("tel://999") },
-      {
         text: "Cancel",
         onPress: () => console.log("Cancel Pressed"),
         style: "destructive",
       },
+      {
+        text: "University",
+        onPress: () => Linking.openURL("tel://01202962222"),
+      },
+      { text: "Police", onPress: () => Linking.openURL("tel://999") },
     ]);
 
   const signOut = () => {
@@ -107,11 +107,19 @@ const Home = ({ navigation }) => {
   return (
     <View style={[styles.homeContainer]}>
       <View style={[styles.containerBuffer]}>
-        <View style={[styles.buttonBarContainer]}>
+        <View
+          style={{
+            paddingVertical: 2,
+            justifyContent: "center",
+            flexDirection: "row",
+          }}
+        >
           <TouchableOpacity style={[styles.signoutButton]} onPress={signOut}>
             <Text style={styles.signoutText}>Sign out</Text>
           </TouchableOpacity>
+        </View>
 
+        <View style={[styles.buttonBarContainer]}>
           <TouchableOpacity
             style={[styles.buttonBar]}
             onPress={() => navigation.navigate("Location")}

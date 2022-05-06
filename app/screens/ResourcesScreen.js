@@ -9,17 +9,17 @@ const Resources = ({ navigation }) => {
   const StrutSafeAlert = () =>
     Alert.alert("Strut safe", "Friday-Sunday 19:00-03:00", [
       {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "destructive",
+      },
+      {
         text: "Call",
         onPress: () => Linking.openURL("tel://03333350026"),
       },
       {
         text: "Website",
         onPress: () => Linking.openURL("https://www.strutsafe.org/"),
-      },
-      {
-        text: "Cancel",
-        onPress: () => console.log("Cancel Pressed"),
-        style: "destructive",
       },
     ]);
 

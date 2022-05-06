@@ -106,15 +106,15 @@ const ActiveLocaiton = ({ navigation, route }) => {
   const callingAlert = () =>
     Alert.alert("Emergency Call", "Choose which contact to call", [
       {
-        text: "University",
-        onPress: () => Linking.openURL("tel://01202962222"),
-      },
-      { text: "Police", onPress: () => Linking.openURL("tel://999") },
-      {
         text: "Cancel",
         onPress: () => console.log("Cancel Pressed"),
         style: "destructive",
       },
+      {
+        text: "University",
+        onPress: () => Linking.openURL("tel://01202962222"),
+      },
+      { text: "Police", onPress: () => Linking.openURL("tel://999") },
     ]);
 
   const endTripAlert = () =>
@@ -152,7 +152,7 @@ const ActiveLocaiton = ({ navigation, route }) => {
           mode="WALKING"
         />
 
-        <Marker coordinate={yourPin} pinColor="black">
+        <Marker coordinate={yourPin} pinColor="blue">
           <Callout>
             <Text>You</Text>
           </Callout>

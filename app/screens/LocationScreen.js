@@ -94,11 +94,7 @@ const Location = ({ navigation }) => {
       }}
     >
       <View style={{ flex: 1, marginTop: 40 }}>
-        <View>
-          <Text style={styles.waiting}>{waiting}</Text>
-        </View>
-
-        <View style={styles.topButton}>
+        <View style={styles.topButtons}>
           <TouchableOpacity
             style={[styles.backButton]}
             onPress={() => {
@@ -109,6 +105,8 @@ const Location = ({ navigation }) => {
           >
             <Text style={styles.buttonText}>Back</Text>
           </TouchableOpacity>
+
+          <Text style={styles.waiting}>{waiting}</Text>
         </View>
 
         <GooglePlacesAutocomplete
