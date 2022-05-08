@@ -78,9 +78,8 @@ const Home = ({ navigation }) => {
       return () => {
         // Do something when the screen is unfocused/unmount. Useful for cleanup functions
         // console.log("Screen unfocused");
-
-        setContactList({});
-        setLocationMessage({});
+        // setContactList({});
+        // setLocationMessage({});
       };
     }, [])
   );
