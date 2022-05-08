@@ -1,10 +1,15 @@
-import * as firebase from "firebase";
+import { firebase } from "@firebase/app";
+import "@firebase/auth";
+import "@firebase/firestore";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// import {auth} from "firebase/auth";
+//import {...} from "firebase/firestore";
+
+// Initialize Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBuE5BvZEN8DEEqfxMC19gpgLLUF3Lh5Yw",
   authDomain: "unisafteyapp.firebaseapp.com",
+  // databaseURL: 'https://project-id.firebaseio.com', //TODO: Needed?
   projectId: "unisafteyapp",
   storageBucket: "unisafteyapp.appspot.com",
   messagingSenderId: "65780046573",
@@ -21,5 +26,6 @@ if (firebase.apps.length === 0) {
 }
 
 const auth = firebase.auth();
+const db = firebase.firestore();
 
-export { auth };
+export { auth, db };

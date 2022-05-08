@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Text, View, TouchableOpacity, FlatList } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 
-import { auth } from "../components/firebase";
-import { getUser, getContacts } from "../components/firestore";
+import { auth } from "../components/firebaseNew";
+import { getUser, getContacts } from "../components/firestoreNew";
 import styles from "../static/Styles";
 import Colour from "../static/Colour";
 

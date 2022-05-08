@@ -12,8 +12,8 @@ import * as SMS from "expo-sms";
 //Calling
 import * as Linking from "expo-linking";
 
-import { auth } from "../components/firebase";
-import { getContacts, getLocation, setLocation } from "../components/firestore";
+import { auth } from "../components/firebaseNew";
+import { getContacts, setLocation } from "../components/firestoreNew";
 import styles from "../static/Styles";
 import Colour from "../static/Colour";
 

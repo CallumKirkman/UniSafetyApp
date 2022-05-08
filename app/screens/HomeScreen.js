@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import { Text, View, TouchableOpacity, Alert } from "react-native";
-import { useIsFocused } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 
 import * as ExpoLocation from "expo-location";
 
@@ -9,14 +9,12 @@ import * as SMS from "expo-sms";
 //Calling
 import * as Linking from "expo-linking";
 
-import { auth } from "../components/firebase";
-import { getContacts, getLocation } from "../components/firestore";
+import { auth } from "../components/firebaseNew";
+import { getContacts, setLocation } from "../components/firestoreNew";
 import styles from "../static/Styles";
 
 const Home = ({ navigation }) => {
   let email = auth.currentUser?.email;
-
-  const isFocused = useIsFocused();
 
   const [contactList, setContactList] = useState([]);
   const [locationMessage, setLocationMessage] = useState("");
@@ -34,21 +32,21 @@ const Home = ({ navigation }) => {
   };
 
   const runGetLocation = async () => {
-    await getLocation(email).then((location) => {
-      if (location != "No such document!") {
-        //TODO: Allow for custom message alert?
-        let message = "This is an alert for my location: latitude, longitude: ";
+    // Get location
+    console.log("Get location");
 
-        let coords = location.latitude + " " + location.longitude;
+    let location = await ExpoLocation.getCurrentPositionAsync({});
 
-        message = message + coords;
+    let latitude = parseFloat(JSON.stringify(location.coords.latitude));
+    let longitude = parseFloat(JSON.stringify(location.coords.longitude));
 
-        setLocationMessage(message);
-        // console.log(message);
-      } else {
-        setLocationMessage("No location found, please check");
-      }
-    });
+    let message = "This is an alert for my location: latitude, longitude: ";
+    let coords = latitude + " " + longitude;
+    message = message + coords;
+    setLocationMessage(message);
+
+    // Save location to database
+    setLocation(email, latitude, longitude);
   };
 
   const permissions = async () => {
@@ -68,11 +66,24 @@ const Home = ({ navigation }) => {
     // console.log(backPerm);
   };
 
-  useEffect(() => {
-    permissions();
-    runGetContacts();
-    runGetLocation();
-  }, [isFocused]);
+  useFocusEffect(
+    useCallback(() => {
+      // Do something when the screen is focused/mount
+      // console.log("Screen focused");
+
+      permissions();
+      runGetContacts();
+      runGetLocation();
+
+      return () => {
+        // Do something when the screen is unfocused/unmount. Useful for cleanup functions
+        // console.log("Screen unfocused");
+
+        setContactList({});
+        setLocationMessage({});
+      };
+    }, [])
+  );
 
   // Texting
   const sendSMS = async () => {
@@ -107,6 +118,7 @@ const Home = ({ navigation }) => {
   return (
     <View style={[styles.homeContainer]}>
       <View style={[styles.containerBuffer]}>
+        {/* <Text style={styles.buttonText}>Email: {auth.currentUser?.email}</Text> */}
         <View
           style={{
             paddingVertical: 2,
@@ -163,9 +175,6 @@ const Home = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
-
-        {/* <Text>Home screen</Text>
-      <Text>Email: {auth.currentUser?.email}</Text> */}
       </View>
     </View>
   );

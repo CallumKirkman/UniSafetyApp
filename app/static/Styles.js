@@ -89,8 +89,8 @@ export default StyleSheet.create({
   //Location
   waiting: {
     color: Colour.highlight,
-    fontWeight: "700",
-    fontSize: 18,
+    fontWeight: "800",
+    fontSize: 22,
     alignSelf: "center",
   },
 
