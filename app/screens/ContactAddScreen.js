@@ -8,8 +8,8 @@ import {
   Platform,
 } from "react-native";
 
-import { auth } from "../components/firebaseNew";
-import { addContact } from "../components/firestoreNew";
+import { auth } from "../components/firebase";
+import { addContact } from "../components/firestore";
 import styles from "../static/Styles";
 
 const ContactAdd = ({ navigation, route }) => {

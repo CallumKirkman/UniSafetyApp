@@ -9,8 +9,8 @@ import * as SMS from "expo-sms";
 //Calling
 import * as Linking from "expo-linking";
 
-import { auth } from "../components/firebaseNew";
-import { getContacts, setLocation } from "../components/firestoreNew";
+import { auth } from "../components/firebase";
+import { getContacts, setLocation } from "../components/firestore";
 import styles from "../static/Styles";
 
 const Home = ({ navigation }) => {
@@ -43,6 +43,7 @@ const Home = ({ navigation }) => {
     let message = "This is an alert for my location: latitude, longitude: ";
     let coords = latitude + " " + longitude;
     message = message + coords;
+
     setLocationMessage(message);
 
     // Save location to database
@@ -86,7 +87,11 @@ const Home = ({ navigation }) => {
 
   // Texting
   const sendSMS = async () => {
+    //TODO: If no message or contacts yet?
     const { result } = await SMS.sendSMSAsync(contactList, locationMessage);
+
+    // console.log("Contact list: ", contactList);
+    // console.log("Location message: ", locationMessage);
   };
 
   // Calling

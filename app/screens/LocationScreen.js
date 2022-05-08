@@ -8,8 +8,8 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import MapView, { Callout, Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 
-import { auth } from "../components/firebaseNew";
-import { getLocation, setLocation } from "../components/firestoreNew";
+import { auth } from "../components/firebase";
+import { getLocation, setLocation } from "../components/firestore";
 import Colour from "../static/Colour";
 import styles from "../static/Styles";
 
@@ -19,21 +19,21 @@ const Location = ({ navigation }) => {
   const [yourPin, setYourPin] = React.useState({});
   const [destination, setDestination] = React.useState({});
 
-  const runGetLocation = async () => {
-    await getLocation(email).then((location) => {
-      if (location != "No such document!") {
-        setYourPin({
-          latitude: location.latitude,
-          longitude: location.longitude,
-        });
+  // const runGetLocation = async () => {
+  //   await getLocation(email).then((location) => {
+  //     if (location != "No such document!") {
+  //       setYourPin({
+  //         latitude: location.latitude,
+  //         longitude: location.longitude,
+  //       });
 
-        setDestination({
-          latitude: location.latitude,
-          longitude: location.longitude,
-        });
-      }
-    });
-  };
+  //       setDestination({
+  //         latitude: location.latitude,
+  //         longitude: location.longitude,
+  //       });
+  //     }
+  //   });
+  // };
 
   useFocusEffect(
     useCallback(() => {
@@ -41,7 +41,7 @@ const Location = ({ navigation }) => {
       // console.log("Screen focused");
 
       // Get last known location
-      runGetLocation();
+      // runGetLocation();
 
       // Get location
       const initialLocation = (async () => {
@@ -117,8 +117,8 @@ const Location = ({ navigation }) => {
                 setDestination({
                   latitude: details.geometry.location.lat,
                   longitude: details.geometry.location.lng,
-                  latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0421,
+                  latitudeDelta: 0.07,
+                  longitudeDelta: 0.03,
                 });
               }}
               query={{
@@ -144,8 +144,8 @@ const Location = ({ navigation }) => {
               initialRegion={{
                 latitude: yourPin.latitude,
                 longitude: yourPin.longitude,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
+                latitudeDelta: 0.07,
+                longitudeDelta: 0.03,
               }}
               provider="google"
             >

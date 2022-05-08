@@ -9,7 +9,7 @@ import {
   Alert,
 } from "react-native";
 
-import { auth } from "../components/firebaseNew";
+import { auth } from "../components/firebase";
 import styles from "../static/Styles";
 
 const Login = ({ navigation }) => {

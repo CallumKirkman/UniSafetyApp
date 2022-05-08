@@ -8,8 +8,8 @@ import {
   Platform,
 } from "react-native";
 
-import { auth } from "../components/firebaseNew";
-import { createUser } from "../components/firestoreNew";
+import { auth } from "../components/firebase";
+import { createUser } from "../components/firestore";
 import styles from "../static/Styles";
 
 const Register = ({ navigation }) => {

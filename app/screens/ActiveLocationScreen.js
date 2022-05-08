@@ -12,8 +12,8 @@ import * as SMS from "expo-sms";
 //Calling
 import * as Linking from "expo-linking";
 
-import { auth } from "../components/firebaseNew";
-import { getContacts, setLocation } from "../components/firestoreNew";
+import { auth } from "../components/firebase";
+import { getContacts, setLocation } from "../components/firestore";
 import styles from "../static/Styles";
 import Colour from "../static/Colour";
 
@@ -33,8 +33,8 @@ const ActiveLocaiton = ({ navigation, route }) => {
   const [destination, setDestination] = React.useState({
     latitude: destinationParams["latitude"],
     longitude: destinationParams["longitude"],
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
+    latitudeDelta: 0.07,
+    longitudeDelta: 0.03,
   });
 
   const runGetContacts = async () => {
@@ -135,8 +135,8 @@ const ActiveLocaiton = ({ navigation, route }) => {
         initialRegion={{
           latitude: yourPin.latitude,
           longitude: yourPin.longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
+          latitudeDelta: 0.07,
+          longitudeDelta: 0.03,
         }}
         provider="google"
       >

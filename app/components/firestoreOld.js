@@ -1,10 +1,6 @@
-import { db } from "../components/firebaseNew";
+import * as firebase from "firebase";
 
-// import { firebase } from "@firebase/app";
-
-// import "@firebase/firestore";
-
-// const db = firebase.firestore();
+const db = firebase.firestore();
 
 //TODO: allow for undefined alert return?
 //TODO: Delete user?
@@ -50,15 +46,6 @@ const deleteLocation = (email) => {
 };
 
 // Add user contact
-// const addContact = async (email, contactName, number) => {
-//   await setDoc(doc(firestore, "Users", email, "Contacts", number), {
-//     name: contactName,
-//     number: number,
-//   }).then(() => {
-//     console.log("Contact added!");
-//   });
-// };
-
 const addContact = (email, contactName, number) => {
   db.collection("Users")
     .doc(email)
