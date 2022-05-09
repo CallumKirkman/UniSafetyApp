@@ -2,9 +2,6 @@ import * as firebase from "firebase";
 
 const db = firebase.firestore();
 
-//TODO: allow for undefined alert return?
-//TODO: Delete user?
-
 // Create user data
 const createUser = (email, name, number) => {
   db.collection("Users")

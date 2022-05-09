@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { Text, View, Button, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, ActivityIndicator } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 
 import * as ExpoLocation from "expo-location";
@@ -100,7 +100,10 @@ const Location = ({ navigation }) => {
         {Object.keys(yourPin).length === 0 ||
         Object.keys(destination).length === 0 ? (
           // Pins not set
-          <Text style={styles.waiting}>Getting location</Text>
+          <>
+            <Text style={styles.waiting}>Getting location</Text>
+            <ActivityIndicator size="large" color={Colour.highlight} />
+          </>
         ) : (
           // Pins set
           <>
