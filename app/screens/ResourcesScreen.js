@@ -26,7 +26,7 @@ const Resources = ({ navigation }) => {
   return (
     <View style={[styles.homeContainer]}>
       <View style={[styles.resourcesBuffer]}>
-        <View style={styles.topButton}>
+        <View style={styles.topButtons}>
           <TouchableOpacity
             style={[styles.backButton]}
             onPress={() => navigation.navigate("Home")}
