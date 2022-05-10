@@ -1,11 +1,5 @@
 import { db } from "./firebase";
 
-// import { firebase } from "@firebase/app";
-
-// import "@firebase/firestore";
-
-// const db = firebase.firestore();
-
 //TODO: allow for undefined alert return?
 //TODO: Delete user?
 

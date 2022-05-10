@@ -24,7 +24,7 @@ const Resources = ({ navigation }) => {
     ]);
 
   return (
-    <View style={[styles.homeContainer]}>
+    <View style={[styles.resourcesContainer]}>
       <View style={[styles.resourcesBuffer]}>
         <View style={styles.topButtons}>
           <TouchableOpacity
@@ -94,22 +94,6 @@ const Resources = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
         </View>
-
-        {/* <View style={[styles.rowContainer]}>
-          <View style={[styles.squareButtonContainer]}>
-            <TouchableOpacity style={[styles.homeButtonBox]} onPress={sendSMS}>
-              <Text style={styles.buttonText}>Alert contacts</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={[styles.squareButtonContainer]}>
-            <TouchableOpacity
-              style={[styles.homeButtonBox]}
-              onPress={callNumber}
-            >
-              <Text style={styles.buttonText}>Emergency Services</Text>
-            </TouchableOpacity>
-          </View>
-        </View> */}
       </View>
     </View>
   );

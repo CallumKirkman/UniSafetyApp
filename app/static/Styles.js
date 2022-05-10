@@ -29,11 +29,6 @@ export default StyleSheet.create({
     borderColor: Colour.highlight,
     borderWidth: 2,
   },
-  buttonContainer: {
-    width: "60%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   buttonBox: {
     backgroundColor: Colour.primary,
     borderRadius: 15,
@@ -41,6 +36,16 @@ export default StyleSheet.create({
     justifyContent: "center",
     padding: 10,
     margin: 20,
+    borderColor: Colour.highlight,
+    borderWidth: 2,
+  },
+  buttonBar: {
+    backgroundColor: Colour.primary,
+    width: "100%",
+    height: "50%",
+    borderRadius: 15,
+    alignItems: "center",
+    justifyContent: "center",
     borderColor: Colour.highlight,
     borderWidth: 2,
   },
@@ -67,11 +72,31 @@ export default StyleSheet.create({
     borderWidth: 2,
   },
 
+  topButtons: {
+    padding: 5,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  buttonContainer: {
+    width: "60%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonBarContainer: {
+    flex: 2,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
   buttonText: {
     color: Colour.highlight,
     fontWeight: "700",
     fontSize: 16,
     alignSelf: "center",
+  },
+  warningText: {
+    color: "red",
+    textAlign: "center",
   },
 
   inputContainer: { width: "80%" },
@@ -104,11 +129,6 @@ export default StyleSheet.create({
     borderWidth: 2,
     marginBottom: 30,
   },
-  buttonBarContainer: {
-    flex: 2,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   squareButtonContainer: {
     flex: 1,
     margin: 10,
@@ -120,16 +140,6 @@ export default StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-  },
-  buttonBar: {
-    backgroundColor: Colour.primary,
-    width: "100%",
-    height: "50%",
-    borderRadius: 15,
-    alignItems: "center",
-    justifyContent: "center",
-    borderColor: Colour.highlight,
-    borderWidth: 2,
   },
   signoutButton: {
     backgroundColor: Colour.secondary,
@@ -164,11 +174,6 @@ export default StyleSheet.create({
   contactBuffer: {
     flex: 1,
     marginTop: 25,
-  },
-  topButtons: {
-    padding: 5,
-    flexDirection: "row",
-    justifyContent: "space-between",
   },
   item: {
     padding: 10,
@@ -207,6 +212,10 @@ export default StyleSheet.create({
   },
 
   //Resources
+  resourcesContainer: {
+    flex: 1,
+    backgroundColor: Colour.background,
+  },
   resourcesBuffer: {
     flex: 1,
     marginHorizontal: 10,

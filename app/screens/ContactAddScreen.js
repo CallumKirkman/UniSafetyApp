@@ -73,9 +73,14 @@ const ContactAdd = ({ navigation, route }) => {
         {/* Toggle disabled button */}
         {disabledStatus ? (
           // Invalid
-          <TouchableOpacity style={styles.buttonInvalid} disabled={true}>
-            <Text style={styles.buttonText}>Add contact</Text>
-          </TouchableOpacity>
+          <>
+            <Text style={[styles.warningText]}>
+              Invalid contact name or number
+            </Text>
+            <TouchableOpacity style={styles.buttonInvalid} disabled={true}>
+              <Text style={styles.buttonText}>Add contact</Text>
+            </TouchableOpacity>
+          </>
         ) : (
           // Valid
           <TouchableOpacity style={styles.button} onPress={runAddContact}>

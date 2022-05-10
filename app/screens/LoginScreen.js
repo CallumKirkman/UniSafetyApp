@@ -104,12 +104,7 @@ const Login = ({ navigation }) => {
         {disabledStatus ? (
           // Invalid
           <>
-            <Text
-              style={{
-                color: "red",
-                textAlign: "center",
-              }}
-            >
+            <Text style={[styles.warningText]}>
               Password must be at least 8 characters
             </Text>
             <TouchableOpacity style={[styles.buttonInvalid]} disabled={true}>
