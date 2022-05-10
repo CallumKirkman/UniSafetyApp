@@ -62,13 +62,12 @@ const Register = ({ navigation }) => {
       <View style={styles.buttonContainer}>
         {/* Toggle disabled button */}
         {disabledStatus ? (
-          <TouchableOpacity
-            style={styles.buttonInvalid}
-            disabled={disabledStatus}
-          >
+          // Invalid
+          <TouchableOpacity style={styles.buttonInvalid} disabled={true}>
             <Text style={styles.buttonText}>Create user</Text>
           </TouchableOpacity>
         ) : (
+          // Valid
           <TouchableOpacity style={styles.button} onPress={runCreateUser}>
             <Text style={styles.buttonText}>Create user</Text>
           </TouchableOpacity>

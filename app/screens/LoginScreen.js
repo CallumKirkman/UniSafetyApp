@@ -17,6 +17,8 @@ const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [disabledStatus, setDisabledStatus] = useState(true);
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -26,6 +28,16 @@ const Login = ({ navigation }) => {
 
     return unsubscribe;
   }, []);
+
+  useEffect(() => {
+    if (password.length > 7 && email != "") {
+      // Acceptable format
+      setDisabledStatus(false);
+    } else {
+      // Not acceptable format
+      setDisabledStatus(true);
+    }
+  });
 
   const signUp = () => {
     try {
@@ -88,16 +100,41 @@ const Login = ({ navigation }) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={[styles.button]} onPress={logIn}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
+        {/* Toggle disabled button */}
+        {disabledStatus ? (
+          // Invalid
+          <>
+            <Text
+              style={{
+                color: "red",
+                textAlign: "center",
+              }}
+            >
+              Password must be at least 8 characters
+            </Text>
+            <TouchableOpacity style={[styles.buttonInvalid]} disabled={true}>
+              <Text style={styles.buttonText}>Login</Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity
-          style={[styles.button, styles.buttonOutline]}
-          onPress={signUp}
-        >
-          <Text style={styles.buttonText}>Register</Text>
-        </TouchableOpacity>
+            <TouchableOpacity style={[styles.buttonInvalid]} disabled={true}>
+              <Text style={styles.buttonText}>Register</Text>
+            </TouchableOpacity>
+          </>
+        ) : (
+          // Valid
+          <>
+            <TouchableOpacity style={[styles.button]} onPress={logIn}>
+              <Text style={styles.buttonText}>Login</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.button, styles.buttonOutline]}
+              onPress={signUp}
+            >
+              <Text style={styles.buttonText}>Register</Text>
+            </TouchableOpacity>
+          </>
+        )}
       </View>
     </KeyboardAvoidingView>
   );

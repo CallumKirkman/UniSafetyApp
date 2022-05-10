@@ -72,13 +72,12 @@ const ContactAdd = ({ navigation, route }) => {
       <View style={styles.buttonContainer}>
         {/* Toggle disabled button */}
         {disabledStatus ? (
-          <TouchableOpacity
-            style={styles.buttonInvalid}
-            disabled={disabledStatus}
-          >
+          // Invalid
+          <TouchableOpacity style={styles.buttonInvalid} disabled={true}>
             <Text style={styles.buttonText}>Add contact</Text>
           </TouchableOpacity>
         ) : (
+          // Valid
           <TouchableOpacity style={styles.button} onPress={runAddContact}>
             <Text style={styles.buttonText}>Add contact</Text>
           </TouchableOpacity>

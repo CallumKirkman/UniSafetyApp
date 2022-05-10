@@ -82,13 +82,12 @@ const ContactEdit = ({ navigation, route }) => {
       <View style={styles.buttonContainer}>
         {/* Toggle disabled button */}
         {disabledStatus ? (
-          <TouchableOpacity
-            style={styles.buttonInvalid}
-            disabled={disabledStatus}
-          >
+          // Invalid
+          <TouchableOpacity style={styles.buttonInvalid} disabled={true}>
             <Text style={styles.buttonText}>Edit contact</Text>
           </TouchableOpacity>
         ) : (
+          // Valid
           <TouchableOpacity style={styles.button} onPress={runEditContact}>
             <Text style={styles.buttonText}>Edit contact</Text>
           </TouchableOpacity>
