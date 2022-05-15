@@ -40,16 +40,28 @@ const Home = ({ navigation }) => {
     let latitude = parseFloat(JSON.stringify(location.coords.latitude));
     let longitude = parseFloat(JSON.stringify(location.coords.longitude));
 
-    let message = "This is an alert for my location: ";
-    // let coords = latitude + ", " + longitude;
+    let message =
+      "This is an alert for my location: " + latitude + ", " + longitude;
 
-    let link =
+    let googleLink =
       "https://www.google.com/maps/dir/?api=1&destination=" +
       latitude +
       "," +
       longitude;
 
-    message = message + link;
+    let appleLink =
+      "http://maps.apple.com/?daddr=" + latitude + "," + longitude;
+
+    message =
+      message +
+      "\n\n" +
+      "Google maps:" +
+      "\n" +
+      googleLink +
+      "\n\n" +
+      "Apple maps:" +
+      "\n" +
+      appleLink;
 
     setLocationMessage(message);
 
