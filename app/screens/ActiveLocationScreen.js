@@ -93,11 +93,16 @@ const ActiveLocaiton = ({ navigation, route }) => {
 
   // Texting
   const sendSMS = async () => {
-    let message = "This is an alert for my location: latitude, longitude: ";
+    let message = "This is an alert for my location: ";
+    // let coords = yourPin.latitude + ", " + yourPin.longitude;
 
-    let coords = yourPin.latitude + ", " + yourPin.longitude;
+    let link =
+      "https://www.google.com/maps/dir/?api=1&destination=" +
+      yourPin.latitude +
+      "," +
+      yourPin.longitude;
 
-    message = message + coords;
+    message = message + link;
 
     const { result } = await SMS.sendSMSAsync(contactList, message);
   };
