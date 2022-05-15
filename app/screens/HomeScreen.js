@@ -41,7 +41,7 @@ const Home = ({ navigation }) => {
     let longitude = parseFloat(JSON.stringify(location.coords.longitude));
 
     let message = "This is an alert for my location: latitude, longitude: ";
-    let coords = latitude + " " + longitude;
+    let coords = latitude + " , " + longitude;
     message = message + coords;
 
     setLocationMessage(message);
