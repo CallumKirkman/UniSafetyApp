@@ -95,7 +95,7 @@ const ActiveLocaiton = ({ navigation, route }) => {
   const sendSMS = async () => {
     let message = "This is an alert for my location: latitude, longitude: ";
 
-    let coords = yourPin.latitude + " , " + yourPin.longitude;
+    let coords = yourPin.latitude + ", " + yourPin.longitude;
 
     message = message + coords;
 
